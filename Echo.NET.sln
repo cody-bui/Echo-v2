@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoCore", "EchoCore\EchoCore.csproj", "{CA380C6E-AF88-4714-9A3B-FC169598802E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoVisual", "EchoVisual\EchoVisual.csproj", "{0EEE1B86-B8B4-47D7-A97B-899ADFAD1D43}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{CA380C6E-AF88-4714-9A3B-FC169598802E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA380C6E-AF88-4714-9A3B-FC169598802E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA380C6E-AF88-4714-9A3B-FC169598802E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0EEE1B86-B8B4-47D7-A97B-899ADFAD1D43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EEE1B86-B8B4-47D7-A97B-899ADFAD1D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0EEE1B86-B8B4-47D7-A97B-899ADFAD1D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EEE1B86-B8B4-47D7-A97B-899ADFAD1D43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

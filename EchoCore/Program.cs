@@ -6,7 +6,7 @@
         {
             using (Game game = new Game(1280, 720, "Echo"))
             {
-                game.Run(120.0);
+                game.Run();
             }
         }
     }
