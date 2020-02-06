@@ -27,6 +27,17 @@ namespace EchoCore.Graphics
         public List<VertexBufferLayoutData> Element { private set; get; }
         public int Stride { private set; get; }
 
+        // constructor
+        public VertexBufferLayout()
+        {
+            Element = new List<VertexBufferLayoutData>();
+        }
+
+        /// <summary>
+        /// add layout elements
+        /// </summary>
+        /// <typeparam name="T">type of data</typeparam>
+        /// <param name="count">layout element count</param>
         public void Add<T>(int count)
         {
             switch(Type.GetTypeCode(typeof(T)))

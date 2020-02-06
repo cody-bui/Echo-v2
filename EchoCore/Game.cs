@@ -17,6 +17,8 @@ namespace EchoCore
 
         float[] vertices = { -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f };
         VertexBuffer vb;
+        VertexArray va;
+        VertexBufferLayout vbl;
         Shader shader;
 
         // setup function
@@ -26,8 +28,16 @@ namespace EchoCore
             GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
             vb = new VertexBuffer(vertices, BufferUsageHint.StaticDraw);
+
+            vbl = new VertexBufferLayout();
+            vbl.Add<float>(2);
+
+            va = new VertexArray();
+            va.AddBuffer(vb, vbl);
+
             ShaderType[] st = { ShaderType.VertexShader, ShaderType.FragmentShader };
             shader = new Shader("basic", st);
+            shader.Bind();
 
             base.OnLoad(e);
         }
@@ -48,7 +58,13 @@ namespace EchoCore
         // clear display and swap buffers
         protected override void OnRenderFrame(FrameEventArgs e)
         {
+            // clear
             GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            // render
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
+            // swap
             Context.SwapBuffers();
 
             base.OnRenderFrame(e);
@@ -66,10 +82,10 @@ namespace EchoCore
         {
             shader.Dispose();
             vb.Dispose();
+            va.Dispose();
 
-            // finish the log and keep the console open
+            // finish the log
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Delete, "delete game window");
-            if (System.Diagnostics.Debugger.IsAttached) Console.ReadLine();
 
             base.OnUnload(e);
         }

@@ -14,6 +14,30 @@ namespace EchoCore.Graphics
             id = GL.GenVertexArray();
         }
 
+        ~VertexArray()
+        {
+            Log.ConsoleLog(Log.LogType.Delete, "delete vertex array");
+            GL.DeleteVertexArray(id);
+        }
+
+        // dispose the vertex array
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                Log.ConsoleLog(Log.LogType.Delete, "delete vertex array");
+                GL.DeleteVertexArray(id);
+                disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public void AddBuffer(VertexBuffer vb, VertexBufferLayout vbl)
         {

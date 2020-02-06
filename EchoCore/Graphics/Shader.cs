@@ -40,6 +40,9 @@ namespace EchoCore.Graphics
                 GL.DetachShader(id, shaders[i]);
                 GL.DeleteShader(shaders[i]);
             }
+
+            // unbind for safety reason
+            GL.UseProgram(0);
         }
 
         // delete shader program
