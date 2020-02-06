@@ -28,21 +28,27 @@ namespace EchoCore
                 case LogType.Init:
                     Console.ForegroundColor = System.ConsoleColor.Cyan;
                     break;
+
                 case LogType.Var:
                     Console.ForegroundColor = System.ConsoleColor.Green;
                     break;
+
                 case LogType.Message:
                     Console.ForegroundColor = System.ConsoleColor.Gray;
                     break;
+
                 case LogType.Warning:
                     Console.ForegroundColor = System.ConsoleColor.Yellow;
                     break;
+
                 case LogType.Error:
                     Console.ForegroundColor = System.ConsoleColor.Red;
                     break;
+
                 case LogType.Delete:
                     Console.ForegroundColor = System.ConsoleColor.Magenta;
                     break;
+
                 default:
                     break;
             }

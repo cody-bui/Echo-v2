@@ -1,9 +1,9 @@
-﻿using System;
+﻿using EchoCore.Graphics;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Input;
 using OpenTK.Graphics.OpenGL4;
-using EchoCore.Graphics;
+using OpenTK.Input;
+using System;
 
 namespace EchoCore
 {
@@ -15,11 +15,23 @@ namespace EchoCore
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Init, "new game window");
         }
 
-        float[] vertices = { -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f };
-        VertexBuffer vb;
-        VertexArray va;
-        VertexBufferLayout vbl;
-        Shader shader;
+        private float[] vertices = {
+             0.5f,  0.5f, 0.0f,
+             0.5f, -0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f,
+            -0.5f,  0.5f, 0.0f
+        };
+
+        private uint[] indicies = {
+            0, 1, 3,
+            1, 3, 2
+        };
+
+        private VertexBuffer vb;
+        private IndexBuffer ib;
+        private VertexArray va;
+        private VertexBufferLayout vbl;
+        private Shader shader;
 
         // setup function
         protected override void OnLoad(EventArgs e)
@@ -30,10 +42,12 @@ namespace EchoCore
             vb = new VertexBuffer(vertices, BufferUsageHint.StaticDraw);
 
             vbl = new VertexBufferLayout();
-            vbl.Add<float>(2);
+            vbl.Add<float>(3);
 
             va = new VertexArray();
             va.AddBuffer(vb, vbl);
+
+            ib = new IndexBuffer(indicies, BufferUsageHint.StaticDraw);
 
             ShaderType[] st = { ShaderType.VertexShader, ShaderType.FragmentShader };
             shader = new Shader("basic", st);
@@ -47,10 +61,10 @@ namespace EchoCore
         {
             KeyboardState input = Keyboard.GetState();
 
-            //if (input.IsKeyDown(Key.Escape))
-            //{
-            //    Exit();
-            //}
+            if (input.IsKeyDown(Key.Escape))
+            {
+                Exit();
+            }
 
             base.OnUpdateFrame(e);
         }
@@ -62,7 +76,7 @@ namespace EchoCore
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             // render
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            GL.DrawElements(PrimitiveType.Triangles, indicies.Length, DrawElementsType.UnsignedInt, 0);
 
             // swap
             Context.SwapBuffers();
@@ -82,6 +96,7 @@ namespace EchoCore
         {
             shader.Dispose();
             vb.Dispose();
+            ib.Dispose();
             va.Dispose();
 
             // finish the log

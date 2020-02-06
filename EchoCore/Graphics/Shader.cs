@@ -1,8 +1,8 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL4;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL4;
 
 namespace EchoCore.Graphics
 {
@@ -27,7 +27,7 @@ namespace EchoCore.Graphics
 
             // compile all shaders
             for (int i = 0; i < types.Length; i++)
-            {                
+            {
                 shaders.Add(CompileShader(name, types[i]));
                 GL.AttachShader(id, shaders[shaders.Count - 1]);
             }
@@ -91,8 +91,8 @@ namespace EchoCore.Graphics
         /// <returns></returns>
         private int CompileShader(string name, ShaderType type)
         {
-            string fpath = 
-                @"C:\Users\Rogue\source\repos\Echo.NET\EchoCore\Assets\Shaders\" + 
+            string fpath =
+                @"C:\Users\Rogue\source\repos\Echo.NET\EchoCore\Assets\Shaders\" +
                 name + ShaderExtension(type);
             string source;
             int shader;
@@ -119,12 +119,14 @@ namespace EchoCore.Graphics
         // convert shader type to file extension name
         private string ShaderExtension(ShaderType type)
         {
-            switch(type)
+            switch (type)
             {
                 case (ShaderType.FragmentShader):
                     return ".frag";
+
                 case (ShaderType.GeometryShader):
                     return ".geom";
+
                 default:            // default to vertex shader
                     return ".vert";
             }

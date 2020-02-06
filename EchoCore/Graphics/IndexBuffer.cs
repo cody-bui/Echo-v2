@@ -1,9 +1,9 @@
-﻿using System;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
+using System;
 
 namespace EchoCore.Graphics
 {
-    class IndexBuffer
+    internal class IndexBuffer
     {
         private int id;
 
@@ -12,13 +12,13 @@ namespace EchoCore.Graphics
         /// </summary>
         /// <param name="data">vertices index</param>
         /// <param name="hint">type of buffer usage hint</param>
-        public IndexBuffer(int[] data, BufferUsageHint hint)
+        public IndexBuffer(uint[] data, BufferUsageHint hint)
         {
             Log.ConsoleLog(Log.LogType.Init, "new index buffer");
 
             id = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, id);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, data.Length, data, hint);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, data.Length * sizeof(uint), data, hint);
         }
 
         // buffer destructor
@@ -30,7 +30,7 @@ namespace EchoCore.Graphics
 
         // disposing
         private bool disposed = false;
-        
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

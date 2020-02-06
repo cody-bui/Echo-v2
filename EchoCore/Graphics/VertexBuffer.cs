@@ -1,9 +1,9 @@
-﻿using System;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
+using System;
 
 namespace EchoCore.Graphics
 {
-    class VertexBuffer
+    internal class VertexBuffer
     {
         private int id;
 
@@ -18,7 +18,7 @@ namespace EchoCore.Graphics
 
             id = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, id);
-            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * data.Length, data, hint);
+            GL.BufferData(BufferTarget.ArrayBuffer, data.Length * sizeof(float), data, hint);
         }
 
         // buffer destructor
@@ -30,7 +30,7 @@ namespace EchoCore.Graphics
 
         // disposing
         private bool disposed = false;
-        
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -40,7 +40,7 @@ namespace EchoCore.Graphics
                 disposed = true;
             }
         }
-        
+
         public void Dispose()
         {
             Dispose(true);

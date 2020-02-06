@@ -1,11 +1,11 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL4;
+using System;
 using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL4;
 
 namespace EchoCore.Graphics
 {
     // containing data to construct VertexAttribPointer
-    class VertexBufferLayoutData
+    internal class VertexBufferLayoutData
     {
         public VertexAttribPointerType Type { private set; get; }
         public int ByteSize { private set; get; }
@@ -22,7 +22,7 @@ namespace EchoCore.Graphics
     }
 
     // hold all VertexBufferLayoutData
-    class VertexBufferLayout
+    internal class VertexBufferLayout
     {
         public List<VertexBufferLayoutData> Element { private set; get; }
         public int Stride { private set; get; }
@@ -40,17 +40,20 @@ namespace EchoCore.Graphics
         /// <param name="count">layout element count</param>
         public void Add<T>(int count)
         {
-            switch(Type.GetTypeCode(typeof(T)))
+            switch (Type.GetTypeCode(typeof(T)))
             {
                 case TypeCode.Single:
                     Element.Add(new VertexBufferLayoutData(VertexAttribPointerType.Float, sizeof(float), count, false));
                     break;
+
                 case TypeCode.Double:
                     Element.Add(new VertexBufferLayoutData(VertexAttribPointerType.Double, sizeof(double), count, false));
                     break;
+
                 case TypeCode.Int32:
                     Element.Add(new VertexBufferLayoutData(VertexAttribPointerType.Int, sizeof(int), count, true));
                     break;
+
                 default:
                     EchoCore.Log.ConsoleLog(Log.LogType.Error, "invalid vertex buffer layout type");
                     throw new ArgumentException();

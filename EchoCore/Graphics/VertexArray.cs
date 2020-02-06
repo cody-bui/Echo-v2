@@ -1,9 +1,9 @@
-﻿using System;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
+using System;
 
 namespace EchoCore.Graphics
 {
-    class VertexArray
+    internal class VertexArray
     {
         private int id;
 

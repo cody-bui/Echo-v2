@@ -1,8 +1,8 @@
 ﻿namespace EchoCore
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             using (Game game = new Game(1280, 720, "Echo"))
             {
