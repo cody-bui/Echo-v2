@@ -9,22 +9,22 @@ namespace EchoCore
 {
     public class Game : GameWindow
     {
-        // game constructor
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title)
         {
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Init, "new game window");
         }
 
-        private float[] vertices = {
-             0.5f,  0.5f, 0.0f,
-             0.5f, -0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f,
-            -0.5f,  0.5f, 0.0f
+        float[] vertices =
+        {
+             0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
         };
 
-        private uint[] indicies = {
+        uint[] indices = {
             0, 1, 3,
-            1, 3, 2
+            1, 2, 3
         };
 
         private VertexBuffer vb;
@@ -32,51 +32,57 @@ namespace EchoCore
         private VertexArray va;
         private VertexBufferLayout vbl;
         private Shader shader;
+        private Texture texture;
 
-        // setup function
+        /// <summary>
+        /// window setup, run after a new context is created and first frame is rendered
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
             // default window clear color
             GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-            vb = new VertexBuffer(vertices, BufferUsageHint.StaticDraw);
+            vb = new VertexBuffer(in vertices, BufferUsageHint.StaticDraw);
 
             vbl = new VertexBufferLayout();
             vbl.Add<float>(3);
 
             va = new VertexArray();
-            va.AddBuffer(vb, vbl);
+            va.AddBuffer(in vb, in vbl);
 
-            ib = new IndexBuffer(indicies, BufferUsageHint.StaticDraw);
+            ib = new IndexBuffer(in indices, BufferUsageHint.StaticDraw);
 
-            ShaderType[] st = { ShaderType.VertexShader, ShaderType.FragmentShader };
-            shader = new Shader("basic", st);
+            shader = new Shader("basic", new ShaderType[] { ShaderType.VertexShader, ShaderType.FragmentShader });
             shader.Bind();
+
+            texture = new Texture("texture.jpg", TextureWrapMode.ClampToBorder, TextureWrapMode.ClampToBorder, TextureMinFilter.Nearest, TextureMagFilter.Linear);
 
             base.OnLoad(e);
         }
 
-        // polling input for each frame update
+        /// <summary>
+        /// polling input for each frame update
+        /// </summary>
+        /// <param name="e"></param>        
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             KeyboardState input = Keyboard.GetState();
 
-            if (input.IsKeyDown(Key.Escape))
-            {
-                Exit();
-            }
-
             base.OnUpdateFrame(e);
         }
 
-        // clear display and swap buffers
+        /// <summary>
+        /// program loop, include display clearing, rendering and buffer swapping
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             // clear
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             // render
-            GL.DrawElements(PrimitiveType.Triangles, indicies.Length, DrawElementsType.UnsignedInt, 0);
+            GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
 
             // swap
             Context.SwapBuffers();
@@ -84,7 +90,10 @@ namespace EchoCore
             base.OnRenderFrame(e);
         }
 
-        // change viewport on resize
+        /// <summary>
+        /// change viewport on resize
+        /// </summary>
+        /// <param name="e"></param>        
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(0, 0, Width, Height);
@@ -92,12 +101,16 @@ namespace EchoCore
             base.OnResize(e);
         }
 
+        /// <summary>
+        /// cleanup program, run after the last frame and before the context is destroyed
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnUnload(EventArgs e)
         {
-            shader.Dispose();
             vb.Dispose();
-            ib.Dispose();
             va.Dispose();
+            ib.Dispose();
+            shader.Dispose();
 
             // finish the log
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Delete, "delete game window");

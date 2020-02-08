@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 namespace EchoCore.Graphics
 {
-    // containing data to construct VertexAttribPointer
+    /// <summary>
+    /// containing data to construct VertexAttribPointer
+    /// </summary>
     internal class VertexBufferLayoutData
     {
         public VertexAttribPointerType Type { private set; get; }
@@ -21,13 +23,14 @@ namespace EchoCore.Graphics
         }
     }
 
-    // hold all VertexBufferLayoutData
+    /// <summary>
+    /// hold all vertex buffer layout data
+    /// </summary>
     internal class VertexBufferLayout
     {
         public List<VertexBufferLayoutData> Element { private set; get; }
         public int Stride { private set; get; }
 
-        // constructor
         public VertexBufferLayout()
         {
             Element = new List<VertexBufferLayoutData>();

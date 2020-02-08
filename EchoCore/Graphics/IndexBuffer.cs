@@ -12,7 +12,7 @@ namespace EchoCore.Graphics
         /// </summary>
         /// <param name="data">vertices index</param>
         /// <param name="hint">type of buffer usage hint</param>
-        public IndexBuffer(uint[] data, BufferUsageHint hint)
+        public IndexBuffer(in uint[] data, BufferUsageHint hint)
         {
             Log.ConsoleLog(Log.LogType.Init, "new index buffer");
 
@@ -21,16 +21,18 @@ namespace EchoCore.Graphics
             GL.BufferData(BufferTarget.ElementArrayBuffer, data.Length * sizeof(uint), data, hint);
         }
 
-        // buffer destructor
         ~IndexBuffer()
         {
             Log.ConsoleLog(Log.LogType.Delete, "delete index buffer");
             GL.DeleteBuffer(id);
         }
 
-        // disposing
         private bool disposed = false;
 
+        /// <summary>
+        /// dispose function
+        /// </summary>
+        /// <param name="disposing">to distinguish from public dispose function</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -47,13 +49,11 @@ namespace EchoCore.Graphics
             GC.SuppressFinalize(this);
         }
 
-        // bind the buffer
         public void Bind()
         {
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, id);
         }
 
-        // unbind the buffer
         public void Unbind()
         {
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);

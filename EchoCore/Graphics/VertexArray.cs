@@ -7,7 +7,6 @@ namespace EchoCore.Graphics
     {
         private int id;
 
-        // constructor generates vertex array
         public VertexArray()
         {
             Log.ConsoleLog(Log.LogType.Init, "new vertex array");
@@ -20,9 +19,12 @@ namespace EchoCore.Graphics
             GL.DeleteVertexArray(id);
         }
 
-        // dispose the vertex array
         private bool disposed = false;
 
+        /// <summary>
+        /// dispose function
+        /// </summary>
+        /// <param name="disposing">to distinguish from public dispose function</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -39,7 +41,12 @@ namespace EchoCore.Graphics
             GC.SuppressFinalize(this);
         }
 
-        public void AddBuffer(VertexBuffer vb, VertexBufferLayout vbl)
+        /// <summary>
+        /// add buffer
+        /// </summary>
+        /// <param name="vb">vertex buffer</param>
+        /// <param name="vbl">vertex buffer layout</param>
+        public void AddBuffer(in VertexBuffer vb, in VertexBufferLayout vbl)
         {
             GL.BindVertexArray(id);
             vb.Bind();
@@ -62,13 +69,11 @@ namespace EchoCore.Graphics
             }
         }
 
-        // bind
         public void Bind()
         {
             GL.BindVertexArray(id);
         }
 
-        // unbind
         public void Unbind()
         {
             GL.BindVertexArray(0);

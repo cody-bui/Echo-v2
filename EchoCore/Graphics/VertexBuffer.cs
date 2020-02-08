@@ -12,7 +12,7 @@ namespace EchoCore.Graphics
         /// </summary>
         /// <param name="data">vertices postion array</param>
         /// <param name="flag">type of buffer usage hint</param>
-        public VertexBuffer(float[] data, BufferUsageHint hint)
+        public VertexBuffer(in float[] data, BufferUsageHint hint)
         {
             Log.ConsoleLog(Log.LogType.Init, "new vertex buffer");
 
@@ -21,16 +21,18 @@ namespace EchoCore.Graphics
             GL.BufferData(BufferTarget.ArrayBuffer, data.Length * sizeof(float), data, hint);
         }
 
-        // buffer destructor
         ~VertexBuffer()
         {
             Log.ConsoleLog(Log.LogType.Delete, "delete vertex buffer");
             GL.DeleteBuffer(id);
         }
 
-        // disposing
         private bool disposed = false;
 
+        /// <summary>
+        /// dispose function
+        /// </summary>
+        /// <param name="disposing">to distinguish from public dispose function</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -47,13 +49,11 @@ namespace EchoCore.Graphics
             GC.SuppressFinalize(this);
         }
 
-        // bind the buffer
         public void Bind()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, id);
         }
 
-        // unbind the buffer
         public void UnBind()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

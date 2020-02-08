@@ -31,19 +31,44 @@ __note__: these components maybe merged together into one in the future
 
 \
 *`echo core structure:`*
-- *beat object class:*
-	```c++
-	class BeatObject
+- *beat object class:* running based on entity component system
+- game components:
+	- `transform:` position on the display
+	- `motion:` movement pattern, acceleration, velocity...
+	- `sprite:` appearance on the display
+	- `hit:` interaction with player-controlled entities
+	- `tick:` lifetime of an entity
+	- `control:` keyboard, mouse, etc.
+	- `audio:` not to be confused with music, since it's independent of everything else
+
+- possible entities:
+	```c#
+	void Entites::Add(ComponentManager cm)
 	{
-	protected:
-		std::vector<RenderElement> render;
-		std::vector<LogicElement> logic;
-	public:
-		void AddRenderElement(RenderElement& element) { render.push_back(element); }
-		void AddLogicElement(LogicElement& element)	{ logic.push_back(element);	}
+		cm.Components.push_back(this);
 	}
 	```
+
+	- cursor:
+		- gl.createcursor()
+		- `sprite, hit, tick, control`
+		- no `transform` component since cursor will take real time position
+		- `sprite`: the appearance of cursor on the screen: size, shape, trail, look...
+
+	- beat note: aka game object
+		- `transform, motion, sprite, hit, tick, audio` (everything except `control`)
+		- `transform`: drawing multiple similar notes on the display
+		- `motion`: possibly static along objects
+		- `sprite`: containing various rendering elements: curves, circles, squares, rectangles...
+		- `hit`: using raised event data to determine if the cursor is hit or not
+		- `tick`: 
+		- `audio`: play audio when `hit` is raised
+
+- component manager:
+	- contain pretty much nothing but the component id
+	- hold a vector of components
 
 - *event system:*
 	- event args class
 	- event dispatcher class
+
