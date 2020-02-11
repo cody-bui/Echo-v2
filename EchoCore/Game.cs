@@ -1,9 +1,10 @@
-﻿using EchoCore.Graphics;
+﻿using EchoCore.Input;
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
-using OpenTK.Input;
 using System;
+using System.Collections.Generic;
 
 namespace EchoCore
 {
@@ -11,29 +12,12 @@ namespace EchoCore
     {
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title)
         {
+            // enable blending
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Init, "new game window");
         }
-
-        float[] vertices =
-        {
-             0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
-        };
-
-        uint[] indices = {
-            0, 1, 3,
-            1, 2, 3
-        };
-
-        private VertexBuffer vb;
-        private IndexBuffer ib;
-        private VertexArray va;
-        private VertexBufferLayout vbl;
-        private Shader shader;
-        private Texture texture1;
-        private Texture texture2;
 
         /// <summary>
         /// window setup, run after a new context is created and first frame is rendered
@@ -41,30 +25,9 @@ namespace EchoCore
         /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
-            // default window clear color
             GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-            shader = new Shader("basic", new ShaderType[] { ShaderType.VertexShader, ShaderType.FragmentShader });
-            shader.Bind();
-
-            vb = new VertexBuffer(in vertices, BufferUsageHint.StaticDraw);
-
-            texture1 = new Texture("texture1.png", TextureWrapMode.ClampToBorder, TextureWrapMode.ClampToBorder, TextureMinFilter.Nearest, TextureMagFilter.Linear);
-            texture1.Bind(true);
-            shader.SetUniform("tex0", 0);
-
-            texture2 = new Texture("texture2.png", TextureWrapMode.ClampToBorder, TextureWrapMode.ClampToBorder, TextureMinFilter.Nearest, TextureMagFilter.Linear);
-            texture2.Bind(false);
-            shader.SetUniform("tex1", 1);
-
-            vbl = new VertexBufferLayout();
-            vbl.Add<float>(3);
-            vbl.Add<float>(2);
-
-            va = new VertexArray();
-            va.AddBuffer(in vb, in vbl);
-
-            ib = new IndexBuffer(in indices, BufferUsageHint.StaticDraw);
+            Input.Input.OnLoad(this);
 
             base.OnLoad(e);
         }
@@ -75,7 +38,7 @@ namespace EchoCore
         /// <param name="e"></param>        
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            KeyboardState input = Keyboard.GetState();
+            Input.Input.OnUpdate();
 
             base.OnUpdateFrame(e);
         }
@@ -90,7 +53,6 @@ namespace EchoCore
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             // render
-            GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
 
             // swap
             Context.SwapBuffers();
@@ -105,7 +67,6 @@ namespace EchoCore
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(0, 0, Width, Height);
-
             base.OnResize(e);
         }
 
@@ -115,16 +76,9 @@ namespace EchoCore
         /// <param name="e"></param>
         protected override void OnUnload(EventArgs e)
         {
-            vb.Dispose();
-            va.Dispose();
-            ib.Dispose();
-            shader.Dispose();
-            texture1.Dispose();
-            texture2.Dispose();
+            Input.Input.OnUnload(this);
 
-            // finish the log
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Delete, "delete game window");
-
             base.OnUnload(e);
         }
     }

@@ -20,7 +20,7 @@ namespace EchoCore.Graphics
         /// <param name="wrapT">wrap t (y)</param>
         /// <param name="minFilter">min filter</param>
         /// <param name="magFilter">mag filter</param>
-        public Texture(string name, TextureWrapMode wrapS, TextureWrapMode wrapT, TextureMinFilter minFilter, TextureMagFilter magFilter)
+        public Texture(string name, TextureWrapMode wrap = TextureWrapMode.ClampToBorder, bool pixelated = false)
         {
             Log.ConsoleLog(Log.LogType.Init, "new texture");
 
@@ -29,12 +29,14 @@ namespace EchoCore.Graphics
             GL.BindTexture(TextureTarget.Texture2D, id);
 
             // texture wrapping
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)wrapS);    // s (x)
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)wrapT);    // t (y)
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)wrap); // s (x)
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)wrap); // t (y)
 
             // texture filtering
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)minFilter);    // min
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)magFilter);    // mag
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)   // min filter
+                (pixelated ? TextureMinFilter.Nearest : TextureMinFilter.Linear));
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)   // mag filter
+                (pixelated ? TextureMagFilter.Nearest : TextureMagFilter.Linear));
 
             // load the image
             Image<Rgba32> image = (Image<Rgba32>)Image.Load(@"C:\Users\Rogue\source\repos\Echo.NET\EchoCore\Assets\Textures\" + name);
