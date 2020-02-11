@@ -27,9 +27,11 @@ namespace EchoCore.Graphics
             _name = name;
             Log.ConsoleLog(Log.LogType.Init, $"new shader: {name}");
 
+            // create new shader program
             id = GL.CreateProgram();
 
             List<int> shaders = new List<int>();
+            uniforms = new Dictionary<string, int>();
 
             // compile all shaders
             for (int i = 0; i < types.Length; i++)
@@ -171,25 +173,59 @@ namespace EchoCore.Graphics
             return location;
         }
 
-        public void SetUniform(in string name, ref Vector4 vec)
+        public void SetUniform(in string name, in Vector4 vec)
         {
             GL.Uniform4(UniformLocation(in name), vec);
         }
 
-        public void SetUniform(in string name, float v0, float v1, float v2, float v3)
+        public void SetUniform(in string name, float v1, float v2, float v3, float v4)
         {
-            GL.Uniform4(UniformLocation(in name), v0, v1, v2, v3);
+            GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
         }
 
-        public void SetUniform(in string name, ref Vector3 vec)
+        public void SetUniform(in string name, int v1, int v2, int v3, int v4)
+        {
+            GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
+        }
+
+        public void SetUniform(in string name, in Vector3 vec)
         {
             GL.Uniform3(UniformLocation(in name), vec);
         }
 
-        public void SetUniform(in string name, Vector2 vec)
+        public void SetUniform(in string name, float v1, float v2, float v3)
+        {
+            GL.Uniform3(UniformLocation(in name), v1, v2, v3);
+        }
+
+        public void SetUniform(in string name, int v1, int v2, int v3)
+        {
+            GL.Uniform3(UniformLocation(in name), v1, v2, v3);
+        }
+
+        public void SetUniform(in string name, in Vector2 vec)
         {
             GL.Uniform2(UniformLocation(in name), vec);
         }
 
+        public void SetUniform(in string name, float v1, float v2)
+        {
+            GL.Uniform2(UniformLocation(in name), v1, v2);
+        }
+
+        public void SetUniform(in string name, int v1, int v2)
+        {
+            GL.Uniform2(UniformLocation(in name), v1, v2);
+        }
+
+        public void SetUniform(in string name, float val)
+        {
+            GL.Uniform1(UniformLocation(name), val);
+        }
+
+        public void SetUniform(in string name, int val)
+        {
+            GL.Uniform1(UniformLocation(name), val);
+        }
     }
 }

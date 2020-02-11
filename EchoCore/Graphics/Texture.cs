@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL4;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
@@ -9,6 +10,8 @@ namespace EchoCore.Graphics
 {
     public class Texture
     {
+        private int id;
+
         /// <summary>
         /// 2d texture
         /// </summary>
@@ -19,13 +22,19 @@ namespace EchoCore.Graphics
         /// <param name="magFilter">mag filter</param>
         public Texture(string name, TextureWrapMode wrapS, TextureWrapMode wrapT, TextureMinFilter minFilter, TextureMagFilter magFilter)
         {
+            Log.ConsoleLog(Log.LogType.Init, "new texture");
+
+            // gen texture
+            id = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, id);
+
             // texture wrapping
-            GL.TexParameter(TextureTarget.Texture3D, TextureParameterName.TextureWrapS, (int)wrapS);    // s (x)
-            GL.TexParameter(TextureTarget.Texture3D, TextureParameterName.TextureWrapT, (int)wrapT);    // t (y)
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)wrapS);    // s (x)
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)wrapT);    // t (y)
 
             // texture filtering
-            GL.TexParameter(TextureTarget.Texture3D, TextureParameterName.TextureMinFilter, (int)minFilter);    // min
-            GL.TexParameter(TextureTarget.Texture3D, TextureParameterName.TextureMagFilter, (int)magFilter);    // mag
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)minFilter);    // min
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)magFilter);    // mag
 
             // load the image
             Image<Rgba32> image = (Image<Rgba32>)Image.Load(@"C:\Users\Rogue\source\repos\Echo.NET\EchoCore\Assets\Textures\" + name);
@@ -46,8 +55,62 @@ namespace EchoCore.Graphics
                 pixels.Add(p.A);
             }
 
-            // generate the image
+            // load texture
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
+        }
+
+        ~Texture()
+        {
+            GL.DeleteTexture(id);
+        }
+
+        /// <summary>
+        /// bind texture to unit 0 or 1
+        /// </summary>
+        /// <param name="first">is first unit</param>
+        public void Bind(bool first)
+        {
+            if (first)
+                GL.ActiveTexture(TextureUnit.Texture0);
+            else
+                GL.ActiveTexture(TextureUnit.Texture1);
+
+            GL.BindTexture(TextureTarget.Texture2D, id);
+        }
+
+        /// <summary>
+        /// unbind texture from unit 0 or 1
+        /// </summary>
+        /// <param name="first">is first unit</param>
+        public void Unbind(bool first)
+        {
+            if (first)
+                GL.ActiveTexture(TextureUnit.Texture0);
+            else
+                GL.ActiveTexture(TextureUnit.Texture1);
+            
+            GL.BindTexture(TextureTarget.Texture2D, id);
+        }
+
+        private bool disposed = false;
+
+        /// <summary>
+        /// dispose function
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                Log.ConsoleLog(Log.LogType.Delete, "delete texture");
+                GL.DeleteTexture(id);
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -32,7 +32,8 @@ namespace EchoCore
         private VertexArray va;
         private VertexBufferLayout vbl;
         private Shader shader;
-        private Texture texture;
+        private Texture texture1;
+        private Texture texture2;
 
         /// <summary>
         /// window setup, run after a new context is created and first frame is rendered
@@ -43,20 +44,27 @@ namespace EchoCore
             // default window clear color
             GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
+            shader = new Shader("basic", new ShaderType[] { ShaderType.VertexShader, ShaderType.FragmentShader });
+            shader.Bind();
+
             vb = new VertexBuffer(in vertices, BufferUsageHint.StaticDraw);
+
+            texture1 = new Texture("texture1.png", TextureWrapMode.ClampToBorder, TextureWrapMode.ClampToBorder, TextureMinFilter.Nearest, TextureMagFilter.Linear);
+            texture1.Bind(true);
+            shader.SetUniform("tex0", 0);
+
+            texture2 = new Texture("texture2.png", TextureWrapMode.ClampToBorder, TextureWrapMode.ClampToBorder, TextureMinFilter.Nearest, TextureMagFilter.Linear);
+            texture2.Bind(false);
+            shader.SetUniform("tex1", 1);
 
             vbl = new VertexBufferLayout();
             vbl.Add<float>(3);
+            vbl.Add<float>(2);
 
             va = new VertexArray();
             va.AddBuffer(in vb, in vbl);
 
             ib = new IndexBuffer(in indices, BufferUsageHint.StaticDraw);
-
-            shader = new Shader("basic", new ShaderType[] { ShaderType.VertexShader, ShaderType.FragmentShader });
-            shader.Bind();
-
-            texture = new Texture("texture.jpg", TextureWrapMode.ClampToBorder, TextureWrapMode.ClampToBorder, TextureMinFilter.Nearest, TextureMagFilter.Linear);
 
             base.OnLoad(e);
         }
@@ -111,6 +119,8 @@ namespace EchoCore
             va.Dispose();
             ib.Dispose();
             shader.Dispose();
+            texture1.Dispose();
+            texture2.Dispose();
 
             // finish the log
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Delete, "delete game window");

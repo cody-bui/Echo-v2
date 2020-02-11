@@ -68,7 +68,14 @@ __note__: these components maybe merged together into one in the future
 	- contain pretty much nothing but the component id
 	- hold a vector of components
 
-- *event system:*
-	- event args class
-	- event dispatcher class
+- event system:
+	- event manager class
+	```c#
+	class EventManager
+	{
+		public delegate void EventManagerEventHandler(object sender, EventArgs e);
+		public event EventManagerEventHandler EventManagerEvent;
 
+		protected virtual void 
+	}
+	```

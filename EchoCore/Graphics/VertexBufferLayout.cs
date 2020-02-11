@@ -43,14 +43,11 @@ namespace EchoCore.Graphics
         /// <param name="count">layout element count</param>
         public void Add<T>(int count)
         {
+            // element switch case
             switch (Type.GetTypeCode(typeof(T)))
             {
                 case TypeCode.Single:
                     Element.Add(new VertexBufferLayoutData(VertexAttribPointerType.Float, sizeof(float), count, false));
-                    break;
-
-                case TypeCode.Double:
-                    Element.Add(new VertexBufferLayoutData(VertexAttribPointerType.Double, sizeof(double), count, false));
                     break;
 
                 case TypeCode.Int32:
@@ -58,9 +55,12 @@ namespace EchoCore.Graphics
                     break;
 
                 default:
-                    EchoCore.Log.ConsoleLog(Log.LogType.Error, "invalid vertex buffer layout type");
+                    EchoCore.Log.ConsoleLog(Log.LogType.Error, $"unsupported buffer layout type: {typeof(T).Name}");
                     throw new ArgumentException();
             }
+
+            // stride
+            Stride += sizeof(int) * count;
         }
     }
 }
