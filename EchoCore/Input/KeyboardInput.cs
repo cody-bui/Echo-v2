@@ -4,37 +4,37 @@ using OpenTK.Input;
 
 namespace EchoCore.Input
 {
-    static public class Keyboard
+    public class KeyboardInput
     {
-        static public event EventHandler<List<Key>> keyboardEventHandler;
+        public event EventHandler<List<KeyboardKeyEventArgs>> keyboardEventHandler;
 
         /// <summary>
         /// current keys
         /// </summary>
-        static public List<Key> keys = new List<Key>();
+        private List<KeyboardKeyEventArgs> keys = new List<KeyboardKeyEventArgs>();
 
         /// <summary>
         /// keys from the previous frame
         /// </summary>
-        static public List<Key> pKeys = new List<Key>();
+        private List<KeyboardKeyEventArgs> pKeys = new List<KeyboardKeyEventArgs>();
 
         /// <summary>
         /// add key into the list if it's not yet in the list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        static public void OnKeyDown(object sender, KeyboardKeyEventArgs e)
+        public void OnKeyDown(object sender, KeyboardKeyEventArgs e)
         {
             // find and add key
             bool find = false;
-            foreach (Key k in keys)
-                if (k == e.Key)
+            foreach (KeyboardKeyEventArgs k in keys)
+                if (k == e)
                 {
                     find = true;
                     break;
                 }
             if (!find)
-                keys.Add(e.Key);
+                keys.Add(e);
 
             // raise event
             keyboardEventHandler?.Invoke(sender, keys);
@@ -45,11 +45,11 @@ namespace EchoCore.Input
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        static public void OnKeyUp(object sender, KeyboardKeyEventArgs e)
+        public void OnKeyUp(object sender, KeyboardKeyEventArgs e)
         {
             // remove key (always find)
-            foreach (Key k in keys)
-                if (k == e.Key)
+            foreach (KeyboardKeyEventArgs k in keys)
+                if (k == e)
                 {
                     keys.Remove(k);
                     break;
@@ -59,9 +59,13 @@ namespace EchoCore.Input
             keyboardEventHandler?.Invoke(sender, keys);
         }
 
-        static public void OnUpdate()
+        /// <summary>
+        /// swap old keys with new keys and clear the keys
+        /// </summary>
+        public void OnUpdate()
         {
-            keys = pKeys;
+            pKeys = keys;
+            keys.Clear();
         }
     }
 }

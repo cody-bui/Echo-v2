@@ -10,6 +10,8 @@ namespace EchoCore
 {
     public class Game : GameWindow
     {
+        private EchoCore.Input.Input input;
+
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title)
         {
             // enable blending
@@ -27,7 +29,8 @@ namespace EchoCore
         {
             GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-            Input.Input.OnLoad(this);
+            input = new EchoCore.Input.Input();
+            input.OnLoad(this);
 
             base.OnLoad(e);
         }
@@ -38,7 +41,7 @@ namespace EchoCore
         /// <param name="e"></param>        
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            Input.Input.OnUpdate();
+            input.OnUpdate();
 
             base.OnUpdateFrame(e);
         }
@@ -76,7 +79,7 @@ namespace EchoCore
         /// <param name="e"></param>
         protected override void OnUnload(EventArgs e)
         {
-            Input.Input.OnUnload(this);
+            input.OnUnload(this);
 
             EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Delete, "delete game window");
             base.OnUnload(e);
