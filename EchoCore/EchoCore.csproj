@@ -77,6 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\EntityManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
