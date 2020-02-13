@@ -31,8 +31,13 @@ __note__: these components maybe merged together into one in the future
 
 \
 *`echo core structure:`*
-- *beat object class:* running based on entity component system
-- game components:
+- running on `entity component system` (as the name suggest, they'll be the three main elements of the engine):
+	- entity: a set of components that forms a logical game element
+	- component: a set of functionalities or data that the program uses
+	- system: pretty much everything combined, handling logic functionalities and rendering functionalities
+
+- components: a small set of functionalities or data that the program uses
+- possible components:
 	- `transform:` position on the display
 	- `motion:` movement pattern, acceleration, velocity...
 	- `sprite:` appearance on the display
@@ -41,19 +46,11 @@ __note__: these components maybe merged together into one in the future
 	- `control:` keyboard, mouse, etc.
 	- `audio:` not to be confused with music, since it's independent of everything else
 
+- entities: a group of components that made up a fully functioning object of the program
 - possible entities:
-	```c#
-	void Entites::Add(ComponentManager cm)
-	{
-		cm.Components.push_back(this);
-	}
-	```
-
-	- cursor:
-		- gl.createcursor()
-		- `sprite, hit, tick, control`
-		- no `transform` component since cursor will take real time position
-		- `sprite`: the appearance of cursor on the screen: size, shape, trail, look...
+	- controllable object: the only component that receives the input: Player class, cursor (osu!std), hit circle (taiko)...
+		- `transform`: location on the screen
+		- `motion`: may not be needed for many games, if the controllable object doesn't move and only beat object moves
 
 	- beat note: aka game object
 		- `transform, motion, sprite, hit, tick, audio` (everything except `control`)
@@ -61,21 +58,17 @@ __note__: these components maybe merged together into one in the future
 		- `motion`: possibly static along objects
 		- `sprite`: containing various rendering elements: curves, circles, squares, rectangles...
 		- `hit`: using raised event data to determine if the cursor is hit or not
-		- `tick`: 
+		- `tick`: divide the lifetime of the beat object to different ticks, thereby determining the score
 		- `audio`: play audio when `hit` is raised
 
-- component manager:
-	- contain pretty much nothing but the component id
-	- hold a vector of components
+- implementations
+```c#
+public abstract IComponent
+{
+}
 
-- event system:
-	- event manager class
-	```c#
-	class EventManager
-	{
-		public delegate void EventManagerEventHandler(object sender, EventArgs e);
-		public event EventManagerEventHandler EventManagerEvent;
-
-		protected virtual void 
-	}
-	```
+public abstract IEntity
+{
+	public int ID { get; private set; }
+}
+``` 

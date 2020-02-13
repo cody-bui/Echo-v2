@@ -14,7 +14,7 @@ namespace EchoCore.Graphics
         /// <param name="hint">type of buffer usage hint</param>
         public IndexBuffer(in uint[] data, BufferUsageHint hint)
         {
-            Log.ConsoleLog(Log.LogType.Init, "new index buffer");
+            Log.Init("new index buffer");
 
             id = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, id);
@@ -23,7 +23,7 @@ namespace EchoCore.Graphics
 
         ~IndexBuffer()
         {
-            Log.ConsoleLog(Log.LogType.Delete, "delete index buffer");
+            Log.Delete("delete index buffer");
             GL.DeleteBuffer(id);
         }
 
@@ -37,7 +37,7 @@ namespace EchoCore.Graphics
         {
             if (!disposed)
             {
-                Log.ConsoleLog(Log.LogType.Delete, "delete index buffer");
+                Log.Delete("delete index buffer");
                 GL.DeleteBuffer(id);
                 disposed = true;
             }

@@ -55,7 +55,7 @@ namespace EchoCore.Graphics
                     break;
 
                 default:
-                    EchoCore.Log.ConsoleLog(Log.LogType.Error, $"unsupported buffer layout type: {typeof(T).Name}");
+                    EchoCore.Log.Error($"unsupported buffer layout type: {typeof(T).Name}");
                     throw new ArgumentException();
             }
 

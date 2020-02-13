@@ -14,7 +14,7 @@ namespace EchoCore.Graphics
         /// <param name="flag">type of buffer usage hint</param>
         public VertexBuffer(in float[] data, BufferUsageHint hint)
         {
-            Log.ConsoleLog(Log.LogType.Init, "new vertex buffer");
+            Log.Init("new vertex buffer");
 
             id = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, id);
@@ -23,7 +23,7 @@ namespace EchoCore.Graphics
 
         ~VertexBuffer()
         {
-            Log.ConsoleLog(Log.LogType.Delete, "delete vertex buffer");
+            Log.Delete("delete vertex buffer");
             GL.DeleteBuffer(id);
         }
 
@@ -37,7 +37,7 @@ namespace EchoCore.Graphics
         {
             if (!disposed)
             {
-                Log.ConsoleLog(Log.LogType.Delete, "delete vertex buffer");
+                Log.Delete("delete vertex buffer");
                 GL.DeleteBuffer(id);
                 disposed = true;
             }

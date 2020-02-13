@@ -22,7 +22,7 @@ namespace EchoCore.Graphics
         /// <param name="magFilter">mag filter</param>
         public Texture(string name, TextureWrapMode wrap = TextureWrapMode.ClampToBorder, bool pixelated = false)
         {
-            Log.ConsoleLog(Log.LogType.Init, "new texture");
+            Log.Init("new texture");
 
             // gen texture
             id = GL.GenTexture();
@@ -104,7 +104,7 @@ namespace EchoCore.Graphics
         {
             if (!disposed)
             {
-                Log.ConsoleLog(Log.LogType.Delete, "delete texture");
+                Log.Delete("delete texture");
                 GL.DeleteTexture(id);
             }
         }

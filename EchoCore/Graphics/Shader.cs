@@ -25,7 +25,7 @@ namespace EchoCore.Graphics
         public Shader(in string name, in ShaderType[] types)
         {
             _name = name;
-            Log.ConsoleLog(Log.LogType.Init, $"new shader: {name}");
+            Log.Init($"new shader: {name}");
 
             // create new shader program
             id = GL.CreateProgram();
@@ -71,7 +71,7 @@ namespace EchoCore.Graphics
             using (StreamReader reader = new StreamReader(fpath, Encoding.UTF8))
                 source = reader.ReadToEnd();
 
-            Log.ConsoleLog(Log.LogType.Message, $"{type.ToString()}\n{source}\n");
+            Log.Message($"{type.ToString()}\n{source}\n");
 
             shader = GL.CreateShader(type);
             GL.ShaderSource(shader, source);
@@ -108,7 +108,7 @@ namespace EchoCore.Graphics
 
         ~Shader()
         {
-            Log.ConsoleLog(Log.LogType.Delete, $"delete shader{_name}");
+            Log.Delete($"delete shader{_name}");
             GL.DeleteProgram(id);
         }
 
@@ -122,7 +122,7 @@ namespace EchoCore.Graphics
         {
             if (!disposed)
             {
-                Log.ConsoleLog(Log.LogType.Delete, $"delete shader: {_name}");
+                Log.Delete($"delete shader: {_name}");
                 GL.DeleteProgram(id);
                 disposed = true;
             }
@@ -162,7 +162,7 @@ namespace EchoCore.Graphics
             // warn the user if uniform doesn't exist (location = 0)
             if (location == 0)
             {
-                Log.ConsoleLog(Log.LogType.Warning, $"uniform {name} not found");
+                Log.Warning($"uniform {name} not found");
             }
             // else add the uniform in
             else

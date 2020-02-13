@@ -18,7 +18,7 @@ namespace EchoCore
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Init, "new game window");
+            Log.Init("new game window");
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace EchoCore
         {
             input.OnUnload(this);
 
-            EchoCore.Log.ConsoleLog(EchoCore.Log.LogType.Delete, "delete game window");
+            Log.Delete("delete game window");
             base.OnUnload(e);
         }
     }
