@@ -25,10 +25,10 @@ namespace EchoCore
             ConsoleLog("var", data);
         }
 
-        public static void Message(params object[] data)
+        public static void Info(params object[] data)
         {
             Console.ForegroundColor = System.ConsoleColor.Gray;
-            ConsoleLog("message", data);
+            ConsoleLog("info", data);
         }
 
         public static void Warning(params object[] data)

@@ -61,14 +61,7 @@ __note__: these components maybe merged together into one in the future
 		- `tick`: divide the lifetime of the beat object to different ticks, thereby determining the score
 		- `audio`: play audio when `hit` is raised
 
-- implementations
-```c#
-public abstract IComponent
-{
-}
 
-public abstract IEntity
-{
-	public int ID { get; private set; }
-}
-``` 
+- ecs overview:
+	- `entities` are used to provide a unique identifier, making the environment aware of the the set of bundled components
+	- `entity manager` creates entities and allocate them into object pools

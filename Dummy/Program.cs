@@ -1,4 +1,6 @@
-﻿namespace EchoCore
+﻿using EchoCore;
+
+namespace Dummy
 {
     internal class Program
     {

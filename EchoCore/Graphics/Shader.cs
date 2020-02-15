@@ -71,7 +71,7 @@ namespace EchoCore.Graphics
             using (StreamReader reader = new StreamReader(fpath, Encoding.UTF8))
                 source = reader.ReadToEnd();
 
-            Log.Message($"{type.ToString()}\n{source}\n");
+            Log.Info($"{type.ToString()}\n{source}\n");
 
             shader = GL.CreateShader(type);
             GL.ShaderSource(shader, source);

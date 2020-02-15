@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6C093C1B-50AF-4526-9E60-8F862B8F6877}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Dummy</RootNamespace>
+    <AssemblyName>Dummy</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EchoAsset\EchoAsset.csproj">
+      <Project>{a6a611b5-ea0c-47dc-9332-5aa74d644855}</Project>
+      <Name>EchoAsset</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EchoCore\EchoCore.csproj">
+      <Project>{ca380c6e-af88-4714-9a3b-fc169598802e}</Project>
+      <Name>EchoCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
