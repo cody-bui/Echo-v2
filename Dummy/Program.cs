@@ -1,6 +1,4 @@
-﻿using EchoCore;
-
-namespace Dummy
+﻿namespace Dummy
 {
     internal class Program
     {

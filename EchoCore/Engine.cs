@@ -2,24 +2,24 @@
 
 namespace EchoCore
 {
-    public interface Engine
+    public abstract class Engine
     {
         /// <summary>
         /// on engine load
         /// </summary>
         /// <param name="args"></param>
-        void OnLoad();
+        public abstract void OnLoad();
 
         /// <summary>
         /// on engine frame update
         /// </summary>
         /// <param name="args"></param>
-        void OnUpdate();
+        public abstract void OnUpdate();
 
         /// <summary>
         /// on engine unload
         /// </summary>
         /// <param name="args"></param>
-        void OnUnload();
+        public abstract void OnUnload();
     }
 }

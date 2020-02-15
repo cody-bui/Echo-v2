@@ -77,8 +77,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IComponent.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Entity.cs" />
+    <Compile Include="IEntity.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

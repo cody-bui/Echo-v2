@@ -6,14 +6,14 @@ namespace EchoCore
     public static class EntityManager
     {
         private static int StaticId = 0;
-        private static List<Entity> entities = new List<Entity>();
+        private static List<IEntity> entities = new List<IEntity>();
         
         /// <summary>
         /// create a new entity
         /// </summary>
         /// <typeparam name="T">inherited from Entity class</typeparam>
         /// <returns></returns>
-        public static T Create<T>() where T : Entity
+        public static T Create<T>() where T : IEntity
         {
             T t = (T)Activator.CreateInstance(typeof(T), StaticId++);
             entities.Add(t);
@@ -26,7 +26,7 @@ namespace EchoCore
         /// <param name="id"></param>
         public static void Destroy(int id)
         {
-            foreach (Entity e in entities)
+            foreach (IEntity e in entities)
             {
                 if (e.Id == id)
                 {
@@ -42,9 +42,9 @@ namespace EchoCore
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static Entity Get(int id)
+        public static IEntity Get(int id)
         {
-            foreach (Entity e in entities)
+            foreach (IEntity e in entities)
                 if (e.Id == id)
                     return e;
             Log.Warning($"entity with id {id} not found, return default");

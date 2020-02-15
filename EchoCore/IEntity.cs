@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace EchoCore
 {
-    public abstract class Entity
+    public interface IEntity
     {
-        public readonly int Id;
-
-        public Entity(int id)
-        {
-            Id = id;
-        }
+        int Id { get; }
     }
 }
