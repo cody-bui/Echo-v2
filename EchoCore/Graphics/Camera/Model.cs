@@ -1,6 +1,4 @@
-﻿using OpenTK;
-
-namespace EchoCore.Graphics.Camera
+﻿namespace EchoCore.Graphics.Camera
 {
     public class Model
     {

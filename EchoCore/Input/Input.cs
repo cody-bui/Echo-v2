@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using OpenTK.Input;
-
-namespace EchoCore.Input
+﻿namespace EchoCore.Input
 {
     public class Input
     {
-        KeyboardInput kb;
-        MouseInput mouse;
+        private KeyboardInput kb;
+        private MouseInput mouse;
 
         /// <summary>
         /// load input elements, call in GL.OnLoad

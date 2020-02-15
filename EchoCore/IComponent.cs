@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EchoCore
+﻿namespace EchoCore
 {
     public interface IComponent
     {

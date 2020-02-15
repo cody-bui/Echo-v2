@@ -3,7 +3,7 @@ using System;
 
 namespace EchoCore.Graphics
 {
-    internal class VertexBuffer
+    public class VertexBuffer
     {
         private int id;
 

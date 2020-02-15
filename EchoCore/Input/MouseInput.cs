@@ -1,12 +1,14 @@
-﻿using System;
-using OpenTK.Input;
+﻿using OpenTK.Input;
+using System;
 
 namespace EchoCore.Input
 {
     public class MouseInput
     {
         public event EventHandler<MouseEventArgs> mouseEventHandler;
+
         public event EventHandler<MouseButtonEventArgs> mouseButtonEventHandler;
+
         public event EventHandler<MouseWheelEventArgs> mouseWheelEventHandler;
 
         public void OnMouseMove(object sender, MouseMoveEventArgs e)

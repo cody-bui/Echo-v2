@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dummy
+﻿namespace Dummy
 {
     public class Game : EchoCore.Game
     {

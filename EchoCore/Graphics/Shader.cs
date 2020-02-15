@@ -1,5 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL4;
-using OpenTK;
+﻿using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -97,10 +97,13 @@ namespace EchoCore.Graphics
             {
                 case (ShaderType.FragmentShader):
                     return ".frag";
+
                 case (ShaderType.GeometryShader):
                     return ".geom";
+
                 case (ShaderType.VertexShader):
                     return ".vert";
+
                 default:
                     throw new ArgumentException();      // unsupported type
             }

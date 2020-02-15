@@ -8,6 +8,7 @@ namespace EchoCore
         public bool Enabled { get; set; }
 
         public abstract void OnUpdate();
+
         public abstract void OnEvent(object sender, EventArgs e);
     }
 }

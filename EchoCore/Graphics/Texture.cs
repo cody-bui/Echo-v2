@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using System;
+using System.Collections.Generic;
 
 namespace EchoCore.Graphics
 {
@@ -90,7 +90,7 @@ namespace EchoCore.Graphics
                 GL.ActiveTexture(TextureUnit.Texture0);
             else
                 GL.ActiveTexture(TextureUnit.Texture1);
-            
+
             GL.BindTexture(TextureTarget.Texture2D, id);
         }
 

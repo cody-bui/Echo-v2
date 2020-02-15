@@ -64,4 +64,7 @@ __note__: these components maybe merged together into one in the future
 
 - ecs overview:
 	- `entities` are used to provide a unique identifier, making the environment aware of the the set of bundled components
-	- `entity manager` creates entities and allocate them into object pools
+		- it's basically just an id and optionally other functions to let the environment recognizes what it is, nothing else
+	- `entity manager` creates entities and keep track of them
+		- divides entities into pool of entities: `player` pool, `npc` pool, `boxes` pool...
+		- `static int staticid` keeps track of the id -> different pools but different ids

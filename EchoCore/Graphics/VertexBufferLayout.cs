@@ -7,7 +7,7 @@ namespace EchoCore.Graphics
     /// <summary>
     /// containing data to construct VertexAttribPointer
     /// </summary>
-    internal class VertexBufferLayoutData
+    public class VertexBufferLayoutData
     {
         public VertexAttribPointerType Type { private set; get; }
         public int ByteSize { private set; get; }
@@ -26,7 +26,7 @@ namespace EchoCore.Graphics
     /// <summary>
     /// hold all vertex buffer layout data
     /// </summary>
-    internal class VertexBufferLayout
+    public class VertexBufferLayout
     {
         public List<VertexBufferLayoutData> Element { private set; get; }
         public int Stride { private set; get; }

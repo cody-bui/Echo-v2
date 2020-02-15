@@ -3,7 +3,7 @@ using System;
 
 namespace EchoCore.Graphics
 {
-    internal class VertexArray
+    public class VertexArray
     {
         private int id;
 

@@ -10,5 +10,6 @@ uniform sampler2D tex1;
 
 void main()
 {
-	color = uColor * mix(texture(tex0, texCoord), texture(tex1, texCoord), 0.5);
+//	color = uColor * mix(texture(tex0, texCoord), texture(tex1, texCoord), 0.5);
+	color = vec4(0.3, 0.5, 0.2, 1.0);
 }
