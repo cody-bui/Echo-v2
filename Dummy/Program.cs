@@ -6,7 +6,7 @@ namespace Dummy
     {
         private static void Main(string[] args)
         {
-            using (Game game = new Game(1280, 720, "Echo"))
+            using (Game game = new Game(1600, 900, "Dummy App"))
             {
                 game.Run();
             }
