@@ -77,9 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Component.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\EntityManager.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntityManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
@@ -94,8 +93,8 @@
     <Compile Include="Input\KeyboardInput.cs" />
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Layer.cs" />
-    <Compile Include="LayerStack.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>

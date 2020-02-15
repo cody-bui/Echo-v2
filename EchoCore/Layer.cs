@@ -2,7 +2,12 @@
 
 namespace EchoCore
 {
-    public class Layer
+    public abstract class Layer
     {
+        public string Name { get; set; }
+        public bool Enabled { get; set; }
+
+        public abstract void OnUpdate();
+        public abstract void OnEvent(object sender, EventArgs e);
     }
 }
