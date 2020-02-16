@@ -27,8 +27,8 @@ namespace EchoCore.Input
         {
             // find and add key
             bool find = false;
-            foreach (KeyboardKeyEventArgs k in keys)
-                if (k == e)
+            for (int i = 0; i < keys.Count; i++)
+                if (keys[i] == e)
                 {
                     find = true;
                     break;
@@ -48,10 +48,10 @@ namespace EchoCore.Input
         public void OnKeyUp(object sender, KeyboardKeyEventArgs e)
         {
             // remove key (always find)
-            foreach (KeyboardKeyEventArgs k in keys)
-                if (k == e)
+            for (int i = 0; i < keys.Count; i++)
+                if (keys[i] == e)
                 {
-                    keys.Remove(k);
+                    keys.RemoveAt(i);
                     break;
                 }
 

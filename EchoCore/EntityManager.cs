@@ -3,11 +3,18 @@ using System.Collections.Generic;
 
 namespace EchoCore
 {
-    public static class EntityManager
+    /// <summary>
+    /// i know this should either be static or a singleton, but come on, be reasonable
+    /// create one instance only
+    /// </summary>
+    public class EntityManager
     {
         private static int StaticId = 0;
 
-        private static Dictionary<string, List<IEntity>> entities = new Dictionary<string, List<IEntity>>();
+        /// <summary>
+        /// entity pool
+        /// </summary>
+        private Dictionary<Type, List<IEntity>> entities = new Dictionary<Type, List<IEntity>>();
 
         /// <summary>
         /// create a new entity of a specific type
@@ -15,20 +22,20 @@ namespace EchoCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T Add<T>() where T : IEntity
+        public T Add<T>() where T : IEntity
         {
-            var type = typeof(T);
+            Type type = typeof(T);
 
             // create new entity pool if it's not yet existed
-            if (!entities.ContainsKey(type.FullName))
+            if (!entities.ContainsKey(type))
             {
                 Log.Init($"new entity pool type {type.FullName}");
-                entities.Add(type.FullName, new List<IEntity>());
+                entities.Add(type, new List<IEntity>());
             }
 
             // create new T
             T t = (T)Activator.CreateInstance(type, StaticId++);
-            entities[type.FullName].Add(t);
+            entities[type].Add(t);
             return t;
         }
 
@@ -37,15 +44,15 @@ namespace EchoCore
         /// riskier since may remove entity of unwanted type
         /// </summary>
         /// <param name="id"></param>
-        public static void Remove(int id)
+        public void Remove(int id)
         {
-            foreach (var entry in entities)             // iterate through dictionary
+            foreach (var entry in entities)
             {
-                foreach (var entity in entry.Value)     // iterate through list
+                for (int i = 0; i < entry.Value.Count; i++)
                 {
-                    if (entity.Id == id)                // compare id
+                    if (entry.Value[i].Id == id)
                     {
-                        entities[entry.Key].Remove(entity);
+                        entities[entry.Key].RemoveAt(i);
                         Log.Delete($"delete entity type {entry.Key}");
                         return;
                     }
@@ -60,16 +67,16 @@ namespace EchoCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
-        public static void Remove<T>(int id) where T : IEntity
+        public void Remove<T>(int id) where T : IEntity
         {
             var type = typeof(T);
-            if (entities.ContainsKey(type.FullName))            // if entity pool of such type exists
+            if (entities.ContainsKey(type))             // if entity pool of such type exists
             {
-                foreach (var entity in entities[type.FullName])  // iterate through entire list
+                for (int i = 0; i < entities[type].Count; i++)  // iterate through entire list
                 {
-                    if (entity.Id == id)
+                    if (entities[type][i].Id == id)
                     {
-                        entities[type.FullName].Remove(entity);
+                        entities[type].RemoveAt(i);
                         return;
                     }
                 }
@@ -87,16 +94,16 @@ namespace EchoCore
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static IEntity Get(int id)
+        public IEntity Get(int id)
         {
-            foreach (var entry in entities)             // iterate through dictionary
+            foreach (var entry in entities)
             {
-                foreach (var entity in entry.Value)     // iterate through list
+                for (int i = 0; i < entry.Value.Count; i++)
                 {
-                    if (entity.Id == id)                // compare id
+                    if (entry.Value[i].Id == id)
                     {
                         Log.Delete($"return entity type {entry.Key}");
-                        return entity;
+                        return entry.Value[i];
                     }
                 }
             }
@@ -111,16 +118,16 @@ namespace EchoCore
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static IEntity Get<T>(int id) where T : IEntity
+        public IEntity Get<T>(int id) where T : IEntity
         {
             var type = typeof(T);
-            if (entities.ContainsKey(type.FullName))            // if entity pool of such type exists
+            if (entities.ContainsKey(type))
             {
-                foreach (var entity in entities[type.FullName]) // iterate through entire list
+                for (int i = 0; i < entities[type].Count; i++)
                 {
-                    if (entity.Id == id)
+                    if (entities[type][i].Id == id)
                     {
-                        return entity;
+                        return entities[type][i];
                     }
                 }
                 Log.Warning($"entity with id ({id}) cannot be found in {type.FullName}. return default");

@@ -49,12 +49,12 @@ namespace EchoCore.Graphics
 
             // pixel array in opengl format
             List<byte> pixels = new List<byte>();
-            foreach (Rgba32 p in px)
+            for (int i = 0; i < px.Length; i++)
             {
-                pixels.Add(p.R);
-                pixels.Add(p.G);
-                pixels.Add(p.B);
-                pixels.Add(p.A);
+                pixels.Add(px[i].R);
+                pixels.Add(px[i].G);
+                pixels.Add(px[i].B);
+                pixels.Add(px[i].A);
             }
 
             // load texture

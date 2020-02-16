@@ -77,6 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentManager.cs" />
+    <Compile Include="DataPool.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="IEntity.cs" />
