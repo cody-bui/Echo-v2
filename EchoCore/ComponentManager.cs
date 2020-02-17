@@ -18,40 +18,37 @@ namespace EchoCore
             ...
             (most EntityX are default / null)
         }
+        * when the manager receives a request from the entity, it will carry out the desired commands
         */
 
         /// <summary>
         /// component pool
         /// </summary>
-        public Dictionary<Type, List<Component>> Components { get; private set; }
+        private Dictionary<Type, List<Component>> components = new Dictionary<Type, List<Component>>();
 
         /// <summary>
         /// number of entities, corresponding to list_Component.Count
         /// </summary>
         private int size = 0;
 
-        public ComponentManager()
-        {
-            Components = new Dictionary<Type, List<Component>>();
-        }
-
         /// <summary>
-        /// add a component into an entity, may cause Components dictionary expansion
+        /// add a component into an entity, may cause components dictionary expansion
+        /// use 'in' keyword because you don't actually do anything to the entity itself
         /// </summary>
         /// <typeparam name="T">component type</typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public T Add<T>(ref Entity entity) where T : Component, new()
+        public Component Add<T>(in Entity entity) where T : Component, new()
         {
             Type type = typeof(T);
 
             // if dictionary doesn't contain the type, add it
-            if (!Components.ContainsKey(type))
+            if (!components.ContainsKey(type))
             {
-                Components.Add(type, new List<Component>());
-                for (int i = 0; i < Components[type].Count; i++)
+                components.Add(type, new List<Component>());
+                for (int i = 0; i < components[type].Count; i++)
                 {
-                    Components[type][i] = default;
+                    components[type][i] = default;
                 }
             }
 
@@ -61,15 +58,15 @@ namespace EchoCore
             {
                 int expand = entity.Id - size;
                 for (int i = 0; i < expand; i++)
-                    foreach (var e in Components)
+                    foreach (var e in components)
                         e.Value.Add(default);
             }
             size = entity.Id;
             
             // actual component creation
-            Components[type][entity.Id] = new T();
+            components[type][entity.Id] = new T();
 
-            return (T)Components[type][entity.Id];
+            return components[type][entity.Id];
         }
 
         /// <summary>
@@ -78,7 +75,7 @@ namespace EchoCore
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public T Get<T>(ref Entity entity) where T : Component
+        public Component Get<T>(in Entity entity) where T : Component
         {
             Type type = typeof(T);
 
@@ -89,15 +86,15 @@ namespace EchoCore
                 return default;
             }
             // component not found
-            else if (!Components.ContainsKey(type))
+            else if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type} does not exist in the component pool recommend adding it. return default");
+                Log.Warning($"key {type.FullName} does not exist in the component pool recommend adding it. return default");
                 return default;
             }
             // valid case
             else
             {
-                return (T)Components[type][entity.Id];
+                return components[type][entity.Id];
             }
         }
 
@@ -106,7 +103,7 @@ namespace EchoCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
-        public void Remove<T>(ref Entity entity) where T : Component
+        public void Remove<T>(in Entity entity) where T : Component
         {
             Type type = typeof(T);
 
@@ -116,14 +113,40 @@ namespace EchoCore
                 Log.Warning($"entity with id ({entity.Id}) does not exist in the component pool, recommend adding it. delete nothing");
             }
             // component not found
-            else if (!Components.ContainsKey(type))
+            else if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type} does not exist in the component pool recommend adding it. delete nothing");
+                Log.Warning($"key {type.FullName} does not exist in the component pool recommend adding it. delete nothing");
             }
             // valid case
             else
             {
-                Components[type][entity.Id] = default;
+                components[type][entity.Id] = default;
+            }
+        }
+
+        /// <summary>
+        /// iterator
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IEnumerable<Component> Iterator<T>() where T : Component
+        {
+            Type type = typeof(T);
+
+            // component not found
+            if (!components.ContainsKey(type))
+            {
+                Log.Warning($"key {type.FullName} does not exist in the component pool, recommend adding it. return default");
+                yield return default;
+            }
+
+            // looping and return non-default values
+            for (int i = 0; i < components[type].Count; i++)
+            {
+                if (!Equals(components[type][i], default(T)))
+                {
+                    yield return components[type][i];
+                }
             }
         }
     }

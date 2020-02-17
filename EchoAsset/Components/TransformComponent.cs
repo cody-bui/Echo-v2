@@ -3,7 +3,7 @@ using OpenTK;
 
 namespace EchoAsset.Components
 {
-    public abstract class TransformComponent : Component
+    public class TransformComponent : Component
     {
         Matrix4 Position { get; set; }
         Matrix4 Rotation { get; set; }

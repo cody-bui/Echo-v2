@@ -2,7 +2,7 @@
 
 namespace EchoAsset.Entities
 {
-    public abstract class ControllableEntity : Entity
+    public class ControllableEntity : Entity
     {
         protected ControllableEntity(int id) : base(id)
         {

@@ -78,12 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentManager.cs" />
-    <Compile Include="DataPool.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
-    <Compile Include="Game.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
     <Compile Include="Graphics\Camera\View.cs" />
@@ -96,7 +94,6 @@
     <Compile Include="Input\Input.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
     <Compile Include="Input\MouseInput.cs" />
-    <Compile Include="Layer.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

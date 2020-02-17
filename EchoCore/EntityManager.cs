@@ -3,10 +3,6 @@ using System.Collections.Generic;
 
 namespace EchoCore
 {
-    /// <summary>
-    /// i know this should either be static or a singleton, but come on, be reasonable
-    /// create one instance only
-    /// </summary>
     public class EntityManager
     {
         /* component manager memory layout explained
@@ -22,9 +18,12 @@ namespace EchoCore
             IEntityDerived2: {...}
             ...
         }
+        * when the engine requests the engine manager to create a new entity, that entity
+          will request the component manager to allocate the components to it as desired
+          (components might also be added or removed from an entity during run-time)
         */
 
-        private int StaticId = 0;
+        private static int StaticId = 0;
 
         /// <summary>
         /// entity pool

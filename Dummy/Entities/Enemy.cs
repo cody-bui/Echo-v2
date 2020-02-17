@@ -1,8 +1,8 @@
-﻿using EchoAsset.Entities;
+﻿using EchoCore;
 
 namespace Dummy.Entities
 {
-    public class Enemy : CollidableEntity
+    public class Enemy : Entity
     {
         public Enemy(int id) : base (id)
         {

@@ -1,8 +1,8 @@
-﻿using EchoAsset.Entities;
+﻿using EchoCore;
 
 namespace Dummy.Entities
 {
-    public class Player : ControllableEntity
+    public class Player : Entity
     {
         public Player(int id) : base(id)
         {

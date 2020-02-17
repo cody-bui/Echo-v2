@@ -43,17 +43,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine.cs" />
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EchoAsset\EchoAsset.csproj">
-      <Project>{a6a611b5-ea0c-47dc-9332-5aa74d644855}</Project>
-      <Name>EchoAsset</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EchoCore\EchoCore.csproj">
       <Project>{ca380c6e-af88-4714-9a3b-fc169598802e}</Project>
       <Name>EchoCore</Name>

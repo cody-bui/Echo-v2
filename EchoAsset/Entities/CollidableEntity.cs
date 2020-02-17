@@ -1,8 +1,9 @@
 using EchoCore;
+using EchoAsset.Components;
 
 namespace EchoAsset.Entities
 {
-    public abstract class CollidableEntity : Entity
+    public class CollidableEntity : Entity
     {
         protected CollidableEntity(int id) : base(id)
         {

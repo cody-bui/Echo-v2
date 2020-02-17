@@ -9,7 +9,7 @@
         /// load input elements, call in GL.OnLoad
         /// </summary>
         /// <param name="game">pointer to game program</param>
-        public void OnLoad(Game game)
+        public void OnLoad(Engine game)
         {
             kb = new KeyboardInput();
             game.KeyDown += kb.OnKeyDown;
@@ -36,7 +36,7 @@
         /// unload input element, call in GL.Unload
         /// </summary>
         /// <param name="game"></param>
-        public void OnUnload(Game game)
+        public void OnUnload(Engine game)
         {
             game.KeyDown -= kb.OnKeyDown;
             game.KeyUp -= kb.OnKeyUp;
