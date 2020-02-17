@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\IControllable.cs" />
-    <Compile Include="Components\IMotion.cs" />
+    <Compile Include="Components\TransformComponent.cs" />
+    <Compile Include="Entities\CollidableEntity.cs" />
+    <Compile Include="Entities\ControllableEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

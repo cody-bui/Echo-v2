@@ -1,6 +1,6 @@
 ﻿namespace EchoCore
 {
-    public interface IComponent
+    public abstract class Component
     {
         bool Enabled { get; set; }
     }

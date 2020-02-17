@@ -9,12 +9,27 @@ namespace EchoCore
     /// </summary>
     public class EntityManager
     {
-        private static int StaticId = 0;
+        /* component manager memory layout explained
+        * entities: a dictionary that maps list of IEntity to it's 'type'
+        * type is the entity class inherited from IEntity
+        * when a new entity of a new type is added, it maps a new list to that type
+        * when a new entity of an existing type is added, it just add that into the right list
+        * diagram:
+        Dictionary
+        {
+            IEntityDerived0: {Entity0, Entity1, Entity3, Entity9...}
+            IEntityDerived1: {Entity2, Entity4, Entity5...}
+            IEntityDerived2: {...}
+            ...
+        }
+        */
+
+        private int StaticId = 0;
 
         /// <summary>
         /// entity pool
         /// </summary>
-        private Dictionary<Type, List<IEntity>> entities = new Dictionary<Type, List<IEntity>>();
+        private Dictionary<Type, List<Entity>> entities = new Dictionary<Type, List<Entity>>();
 
         /// <summary>
         /// create a new entity of a specific type
@@ -22,7 +37,7 @@ namespace EchoCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T Add<T>() where T : IEntity
+        public T Add<T>() where T : Entity
         {
             Type type = typeof(T);
 
@@ -30,7 +45,7 @@ namespace EchoCore
             if (!entities.ContainsKey(type))
             {
                 Log.Init($"new entity pool type {type.FullName}");
-                entities.Add(type, new List<IEntity>());
+                entities.Add(type, new List<Entity>());
             }
 
             // create new T
@@ -67,7 +82,7 @@ namespace EchoCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
-        public void Remove<T>(int id) where T : IEntity
+        public void Remove<T>(int id) where T : Entity
         {
             var type = typeof(T);
             if (entities.ContainsKey(type))             // if entity pool of such type exists
@@ -94,7 +109,7 @@ namespace EchoCore
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IEntity Get(int id)
+        public Entity Get(int id)
         {
             foreach (var entry in entities)
             {
@@ -118,7 +133,7 @@ namespace EchoCore
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IEntity Get<T>(int id) where T : IEntity
+        public Entity Get<T>(int id) where T : Entity
         {
             var type = typeof(T);
             if (entities.ContainsKey(type))

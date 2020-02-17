@@ -79,9 +79,9 @@
   <ItemGroup>
     <Compile Include="ComponentManager.cs" />
     <Compile Include="DataPool.cs" />
-    <Compile Include="IComponent.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="IEntity.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />

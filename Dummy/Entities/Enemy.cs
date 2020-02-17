@@ -2,9 +2,9 @@
 
 namespace Dummy.Entities
 {
-    public class Player : ControllableEntity
+    public class Enemy : CollidableEntity
     {
-        public Player(int id) : base(id)
+        public Enemy(int id) : base (id)
         {
         }
     }
