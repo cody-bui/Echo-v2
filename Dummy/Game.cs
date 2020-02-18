@@ -6,6 +6,7 @@ namespace Dummy
     {
         public Game(int width, int height, string title) : base(width, height, title)
         {
+            Log.Info(Loader.EngineDir);
         }
     }
 }

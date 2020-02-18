@@ -1,6 +1,6 @@
 ﻿namespace EchoCore
 {
-    public abstract class Component
+    public class Component
     {
         bool Enabled { get; set; }
     }

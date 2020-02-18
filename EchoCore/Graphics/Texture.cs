@@ -39,7 +39,7 @@ namespace EchoCore.Graphics
                 (pixelated ? TextureMagFilter.Nearest : TextureMagFilter.Linear));
 
             // load the image
-            Image<Rgba32> image = (Image<Rgba32>)Image.Load(@"C:\Users\Rogue\source\repos\Echo.NET\EchoCore\Assets\Textures\" + name);
+            Image<Rgba32> image = (Image<Rgba32>)Image.Load(Loader.EngineAsset + @"Textures\" + name);
 
             // flip the image vertically bc opengl loads image reversed
             image.Mutate(x => x.Flip(FlipMode.Vertical));

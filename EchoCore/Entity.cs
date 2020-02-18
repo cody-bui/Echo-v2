@@ -1,10 +1,10 @@
 ﻿namespace EchoCore
 {
-    public abstract class Entity
+    public class Entity
     {
         public int Id { get; private set; }
 
-        protected Entity(int id)
+        public Entity(int id)
         {
             Id = id;
         }

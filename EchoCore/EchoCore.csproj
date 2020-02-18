@@ -81,6 +81,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="EntityComponentSystem.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Input\Input.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
     <Compile Include="Input\MouseInput.cs" />
+    <Compile Include="Loader.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

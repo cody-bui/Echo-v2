@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using EchoCore; 
 
 namespace EchoCore.Graphics
 {
@@ -61,9 +62,7 @@ namespace EchoCore.Graphics
         /// <returns></returns>
         private int CompileShader(in string name, ShaderType type)
         {
-            string fpath =
-                @"C:\Users\Rogue\source\repos\Echo.NET\EchoCore\Assets\Shaders\" +
-                name + ShaderExtension(type);
+            string fpath = Loader.EngineAsset + @"\Shaders\" + name + ShaderExtension(type);
             string source;
             int shader;
 

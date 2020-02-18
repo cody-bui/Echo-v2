@@ -62,7 +62,7 @@ namespace EchoCore
                         e.Value.Add(default);
             }
             size = entity.Id;
-            
+
             // actual component creation
             components[type][entity.Id] = new T();
 
@@ -82,13 +82,13 @@ namespace EchoCore
             // entity not found
             if (entity.Id > size)
             {
-                Log.Warning($"entity with id ({entity.Id}) does not exist in the component pool, recommend adding it. return default");
+                Log.Warning($"entity id ({entity.Id}) does not exist. return default");
                 return default;
             }
             // component not found
             else if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type.FullName} does not exist in the component pool recommend adding it. return default");
+                Log.Warning($"key {type.FullName} does not exist. return default");
                 return default;
             }
             // valid case
@@ -110,12 +110,12 @@ namespace EchoCore
             // entity not found
             if (entity.Id > size)
             {
-                Log.Warning($"entity with id ({entity.Id}) does not exist in the component pool, recommend adding it. delete nothing");
+                Log.Warning($"entity id ({entity.Id}) does not exist. delete nothing");
             }
             // component not found
             else if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type.FullName} does not exist in the component pool recommend adding it. delete nothing");
+                Log.Warning($"key {type.FullName} does not exist. delete nothing");
             }
             // valid case
             else
@@ -136,7 +136,7 @@ namespace EchoCore
             // component not found
             if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type.FullName} does not exist in the component pool, recommend adding it. return default");
+                Log.Warning($"key {type.FullName} does not exist. yield return default");
                 yield return default;
             }
 

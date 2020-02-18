@@ -55,7 +55,6 @@ namespace EchoCore
 
         /// <summary>
         /// remove an entity based on it's id by checking every pool
-        /// riskier since may remove entity of unwanted type
         /// </summary>
         /// <param name="id"></param>
         public void Remove(int id)
@@ -67,7 +66,6 @@ namespace EchoCore
                     if (entry.Value[i].Id == id)
                     {
                         entities[entry.Key].RemoveAt(i);
-                        Log.Delete($"delete entity type {entry.Key}");
                         return;
                     }
                 }
@@ -76,35 +74,7 @@ namespace EchoCore
         }
 
         /// <summary>
-        /// remove an entity based on it's type and id
-        /// safer since only remove entity from the specific type
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="id"></param>
-        public void Remove<T>(int id) where T : Entity
-        {
-            var type = typeof(T);
-            if (entities.ContainsKey(type))             // if entity pool of such type exists
-            {
-                for (int i = 0; i < entities[type].Count; i++)  // iterate through entire list
-                {
-                    if (entities[type][i].Id == id)
-                    {
-                        entities[type].RemoveAt(i);
-                        return;
-                    }
-                }
-                Log.Warning($"entity with id ({id}) cannot be found in {type.FullName}. remove nothing");
-            }
-            else
-            {
-                Log.Warning($"cannot find {type.FullName} entity type, remove nothing");
-            }
-        }
-
-        /// <summary>
         /// get an entity based on it's id by checking every pool
-        /// riskier since may get entiy from unwanted type
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -116,40 +86,11 @@ namespace EchoCore
                 {
                     if (entry.Value[i].Id == id)
                     {
-                        Log.Delete($"return entity type {entry.Key}");
                         return entry.Value[i];
                     }
                 }
             }
             Log.Warning($"no entity with such id ({id}) found, return default");
-            return default;
-        }
-
-        /// <summary>
-        /// get entity based on it's id and type
-        /// will always get the right type
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Entity Get<T>(int id) where T : Entity
-        {
-            var type = typeof(T);
-            if (entities.ContainsKey(type))
-            {
-                for (int i = 0; i < entities[type].Count; i++)
-                {
-                    if (entities[type][i].Id == id)
-                    {
-                        return entities[type][i];
-                    }
-                }
-                Log.Warning($"entity with id ({id}) cannot be found in {type.FullName}. return default");
-            }
-            else
-            {
-                Log.Warning($"cannot find {type.FullName} entity type, return default");
-            }
             return default;
         }
     }
