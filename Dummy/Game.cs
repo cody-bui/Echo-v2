@@ -1,5 +1,6 @@
 ﻿using EchoCore;
 using EchoCore.Input;
+using EchoCore.Graphics;
 using System;
 
 namespace Dummy
@@ -11,7 +12,8 @@ namespace Dummy
             Log.Info(Loader.EngineDir);
         }
 
-        Input input = new Input();
+        private float[] vertices = { -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f };
+        private Input input = new Input();
 
         protected override void OnLoad(EventArgs e)
         {

@@ -12,15 +12,7 @@ namespace EchoCore.Graphics
     {
         private int id;
 
-        /// <summary>
-        /// 2d texture
-        /// </summary>
-        /// <param name="path">texture path</param>
-        /// <param name="wrapS">wrap s (x)</param>
-        /// <param name="wrapT">wrap t (y)</param>
-        /// <param name="minFilter">min filter</param>
-        /// <param name="magFilter">mag filter</param>
-        public Texture(string name, TextureWrapMode wrap = TextureWrapMode.ClampToBorder, bool pixelated = false)
+        public Texture(string file, TextureWrapMode wrap = TextureWrapMode.ClampToBorder, bool pixelated = false)
         {
             Log.Init("new texture");
 
@@ -39,7 +31,7 @@ namespace EchoCore.Graphics
                 (pixelated ? TextureMagFilter.Nearest : TextureMagFilter.Linear));
 
             // load the image
-            Image<Rgba32> image = (Image<Rgba32>)Image.Load(Loader.EngineAsset + @"Textures\" + name);
+            Image<Rgba32> image = (Image<Rgba32>)Image.Load($@"{Loader.Asset}\Textures\{file}");
 
             // flip the image vertically bc opengl loads image reversed
             image.Mutate(x => x.Flip(FlipMode.Vertical));

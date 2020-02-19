@@ -4,11 +4,25 @@ namespace EchoCore.Graphics.Camera
 {
     public class Projection
     {
-        public Matrix4 ProjectionMatrix { private set; get; }
-
-        public void Perspective(float left, float right, float bottom, float top, float zNear, float zFar)
+        public enum ProjectionMode
         {
-            ProjectionMatrix = Matrix4.CreatePerspectiveOffCenter(left, right, bottom, top, zNear, zFar);
+            Orthographic = 0,
+            Perspective,
+        }
+
+        public Matrix4 Mat { get; private set; }
+
+        public Projection(ProjectionMode mode, float x, float y, float z)
+        {
+            switch (mode)
+            {
+                case ProjectionMode.Orthographic: 
+                    Mat = Matrix4.CreateOrthographic(x, y, 0.0f, z);
+                    return;
+                case ProjectionMode.Perspective:
+                    Mat = Matrix4.CreatePerspectiveOffCenter(0.0f, x, 0.0f, y, 0.0f, z);
+                    return;
+            }
         }
     }
 }

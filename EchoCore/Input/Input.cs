@@ -28,7 +28,7 @@ namespace EchoCore.Input
             game.MouseUp += mouse.OnMouseUp;
             game.MouseWheel += mouse.OnMouseWheel;
 
-            kb.KeyboardEventHandler += TestKeyInput;
+            //kb.KeyboardEventHandler += TestKeyInput;
         }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace EchoCore.Input
             game.MouseWheel -= mouse.OnMouseWheel;
         }
 
-        public void TestKeyInput(object sender, List<KeyboardKeyEventArgs> e)
+        public void TestKeyInput(object sender, List<Key> e)
         {
             for (int i = 0; i < e.Count; i++)
-                Console.Write(e[i].Key + " ");
+                Console.Write(e[i] + " ");
             Console.WriteLine(e.Count);
         }
     }

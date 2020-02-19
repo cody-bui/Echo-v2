@@ -1,7 +1,6 @@
 ﻿using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
-using OpenTK.Input;
 using System;
 
 namespace EchoCore

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using EchoCore; 
 
 namespace EchoCore.Graphics
 {
@@ -62,7 +61,7 @@ namespace EchoCore.Graphics
         /// <returns></returns>
         private int CompileShader(in string name, ShaderType type)
         {
-            string fpath = Loader.EngineAsset + @"\Shaders\" + name + ShaderExtension(type);
+            string fpath = $@"{Loader.Asset}\Shaders\{name}{ShaderExtension(type)}";
             string source;
             int shader;
 
@@ -155,79 +154,49 @@ namespace EchoCore.Graphics
         {
             // if uniform has been looked up before
             if (uniforms.ContainsKey(name))
-            {
                 return uniforms[name];
-            }
 
             int location = GL.GetUniformLocation(id, name);
 
-            // warn the user if uniform doesn't exist (location = 0)
-            if (location == 0)
-            {
+            if (location == -1)
                 Log.Warning($"uniform {name} not found");
-            }
-            // else add the uniform in
             else
-            {
                 uniforms.Add(name, location);
-            }
 
             return location;
         }
 
         public void SetUniform(in string name, in Vector4 vec)
-        {
-            GL.Uniform4(UniformLocation(in name), vec);
-        }
+            => GL.Uniform4(UniformLocation(in name), vec);
 
         public void SetUniform(in string name, float v1, float v2, float v3, float v4)
-        {
-            GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
-        }
+            => GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
 
         public void SetUniform(in string name, int v1, int v2, int v3, int v4)
-        {
-            GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
-        }
+            => GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
 
         public void SetUniform(in string name, in Vector3 vec)
-        {
-            GL.Uniform3(UniformLocation(in name), vec);
-        }
+            => GL.Uniform3(UniformLocation(in name), vec);
 
         public void SetUniform(in string name, float v1, float v2, float v3)
-        {
-            GL.Uniform3(UniformLocation(in name), v1, v2, v3);
-        }
+            => GL.Uniform3(UniformLocation(in name), v1, v2, v3);
 
         public void SetUniform(in string name, int v1, int v2, int v3)
-        {
-            GL.Uniform3(UniformLocation(in name), v1, v2, v3);
-        }
+            => GL.Uniform3(UniformLocation(in name), v1, v2, v3);
 
         public void SetUniform(in string name, in Vector2 vec)
-        {
-            GL.Uniform2(UniformLocation(in name), vec);
-        }
+            => GL.Uniform2(UniformLocation(in name), vec);
 
         public void SetUniform(in string name, float v1, float v2)
-        {
-            GL.Uniform2(UniformLocation(in name), v1, v2);
-        }
+            => GL.Uniform2(UniformLocation(in name), v1, v2);
 
         public void SetUniform(in string name, int v1, int v2)
-        {
-            GL.Uniform2(UniformLocation(in name), v1, v2);
-        }
+            => GL.Uniform2(UniformLocation(in name), v1, v2);
 
         public void SetUniform(in string name, float val)
-        {
-            GL.Uniform1(UniformLocation(name), val);
-        }
+            => GL.Uniform1(UniformLocation(name), val);
 
         public void SetUniform(in string name, int val)
-        {
-            GL.Uniform1(UniformLocation(name), val);
-        }
+            => GL.Uniform1(UniformLocation(name), val);
     }
 }

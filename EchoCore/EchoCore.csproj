@@ -102,8 +102,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="asset\Shaders\basic.frag" />
-    <None Include="asset\Shaders\basic.vert" />
+    <None Include="asset\Shaders\color.frag" />
+    <None Include="asset\Shaders\color.vert" />
+    <None Include="asset\Shaders\texture.frag" />
+    <None Include="asset\Shaders\texture.vert" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>

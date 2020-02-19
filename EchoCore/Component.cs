@@ -2,6 +2,6 @@
 {
     public abstract class Component
     {
-        bool Enabled { get; set; }
+        private bool Enabled { get; set; }
     }
 }
