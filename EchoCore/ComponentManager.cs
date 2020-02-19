@@ -24,7 +24,7 @@ namespace EchoCore
         /// <summary>
         /// component pool
         /// </summary>
-        private Dictionary<Type, List<Component>> components = new Dictionary<Type, List<Component>>();
+        private Dictionary<Type, List<(int, Component)>> components = new Dictionary<Type, List<(int, Component)>>();
 
         /// <summary>
         /// number of entities, corresponding to list_Component.Count
@@ -45,28 +45,13 @@ namespace EchoCore
             // if dictionary doesn't contain the type, add it
             if (!components.ContainsKey(type))
             {
-                components.Add(type, new List<Component>());
-                for (int i = 0; i < components[type].Count; i++)
-                {
-                    components[type][i] = default;
-                }
+                components.Add(type, new List<(int, Component)>());
             }
-
-            // check the entity id see what is the current top entity being pushed into the component manager
-            // and expand the component pool with default values if needed
-            if (entity.Id > size)
-            {
-                int expand = entity.Id - size;
-                for (int i = 0; i < expand; i++)
-                    foreach (var e in components)
-                        e.Value.Add(default);
-            }
-            size = entity.Id;
 
             // actual component creation
-            components[type][entity.Id] = new T();
+            components[type].Add((entity.Id, new T()));
 
-            return components[type][entity.Id];
+            return components[type][components[type].Count - 1].Item2;
         }
 
         /// <summary>
@@ -79,23 +64,21 @@ namespace EchoCore
         {
             Type type = typeof(T);
 
-            // entity not found
-            if (entity.Id > size)
-            {
-                Log.Warning($"entity id ({entity.Id}) does not exist. return default");
-                return default;
-            }
             // component not found
-            else if (!components.ContainsKey(type))
+            if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type.FullName} does not exist. return default");
-                return default;
+                Log.Warning($"key {type.FullName} not found. return default");
             }
             // valid case
             else
             {
-                return components[type][entity.Id];
+                for (int i = 0; i < components[type].Count; i++)
+                    if (components[type][i].Item1 == entity.Id)
+                        return components[type][i].Item2;
+
+                Log.Warning($"entity id {entity.Id} not found. return default");
             }
+            return default;
         }
 
         /// <summary>
@@ -107,20 +90,23 @@ namespace EchoCore
         {
             Type type = typeof(T);
 
-            // entity not found
-            if (entity.Id > size)
-            {
-                Log.Warning($"entity id ({entity.Id}) does not exist. delete nothing");
-            }
             // component not found
-            else if (!components.ContainsKey(type))
+            if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type.FullName} does not exist. delete nothing");
+                Log.Warning($"key {type.FullName} not found. delete nothing");
             }
             // valid case
             else
             {
-                components[type][entity.Id] = default;
+                for (int i = 0; i < components[type].Count; i++)
+                {
+                    if (components[type][i].Item1 == entity.Id)
+                    {
+                        components[type].RemoveAt(i);
+                        return;
+                    }
+                }
+                Log.Warning($"entity id {entity.Id} not found. delete nothing");
             }
         }
 
@@ -136,18 +122,13 @@ namespace EchoCore
             // component not found
             if (!components.ContainsKey(type))
             {
-                Log.Warning($"key {type.FullName} does not exist. yield return default");
+                Log.Warning($"key {type.FullName} not found. yield return default");
                 yield return default;
             }
 
             // looping and return non-default values
             for (int i = 0; i < components[type].Count; i++)
-            {
-                if (!Equals(components[type][i], default(T)))
-                {
-                    yield return components[type][i];
-                }
-            }
+                yield return components[type][i].Item2;
         }
     }
 }

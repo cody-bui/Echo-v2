@@ -98,16 +98,17 @@
     <Compile Include="Loader.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Timestep.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Assets\Shaders\basic.frag" />
-    <None Include="Assets\Shaders\basic.vert" />
+    <None Include="asset\Shaders\basic.frag" />
+    <None Include="asset\Shaders\basic.vert" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Textures\" />
+    <Folder Include="asset\Textures\" />
     <Folder Include="Event\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
