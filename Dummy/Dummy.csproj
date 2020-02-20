@@ -10,7 +10,7 @@
     <AssemblyName>Dummy</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -43,6 +43,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
@@ -51,14 +52,15 @@
       <Project>{c38ebbd0-8ffa-452f-b696-0ea9f44570f0}</Project>
       <Name>EchoAsset</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EchoCore\EchoCore.csproj">
-      <Project>{ca380c6e-af88-4714-9a3b-fc169598802e}</Project>
-      <Name>EchoCore</Name>
+    <ProjectReference Include="..\Echo\Echo.csproj">
+      <Project>{edec7b14-2277-40f1-b79e-a779696ed3c1}</Project>
+      <Name>Echo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Entities\" />
+    <Folder Include="Test\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">

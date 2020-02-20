@@ -51,15 +51,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EchoCore\EchoCore.csproj">
-      <Project>{ca380c6e-af88-4714-9a3b-fc169598802e}</Project>
-      <Name>EchoCore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Echo\Echo.csproj">
+      <Project>{edec7b14-2277-40f1-b79e-a779696ed3c1}</Project>
+      <Name>Echo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

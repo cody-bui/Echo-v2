@@ -1,4 +1,4 @@
-﻿using EchoCore;
+﻿using Echo;
 using OpenTK;
 
 namespace EchoAsset.Components
