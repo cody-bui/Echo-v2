@@ -7,12 +7,7 @@ namespace Echo.Graphics
     {
         private int id;
 
-        /// <summary>
-        /// index buffer constructor
-        /// </summary>
-        /// <param name="data">vertices index</param>
-        /// <param name="hint">type of buffer usage hint</param>
-        public IndexBuffer(in uint[] data, BufferUsageHint hint)
+        public IndexBuffer(in uint[] data, BufferUsageHint hint = BufferUsageHint.StaticDraw)
         {
             Log.Init("new index buffer");
 
@@ -29,10 +24,6 @@ namespace Echo.Graphics
 
         private bool disposed = false;
 
-        /// <summary>
-        /// dispose function
-        /// </summary>
-        /// <param name="disposing">to distinguish from public dispose function</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

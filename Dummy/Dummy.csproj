@@ -38,28 +38,26 @@
     <StartupObject>Dummy.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Components\HealthComponent.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="System\HealthSystem.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EchoAsset\EchoAsset.csproj">
-      <Project>{c38ebbd0-8ffa-452f-b696-0ea9f44570f0}</Project>
-      <Name>EchoAsset</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Echo\Echo.csproj">
       <Project>{edec7b14-2277-40f1-b79e-a779696ed3c1}</Project>
       <Name>Echo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Entities\" />
     <Folder Include="Test\" />
   </ItemGroup>
   <ItemGroup>

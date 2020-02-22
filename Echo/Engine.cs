@@ -1,26 +1,47 @@
-﻿
+﻿using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL4;
+using System;
+
 namespace Echo
 {
-    public abstract class Engine
+    public class Engine : GameWindow
     {
-        /// <summary>
-        /// call when the engine program is initiailzed
-        /// </summary>
-        public abstract void OnLoad();
+        public Timestep time = new Timestep();
 
-        /// <summary>
-        /// call before the frame is rendered
-        /// </summary>
-        public abstract void OnRender();
+        public Engine(int width, int height, in string title) : base(width, height, GraphicsMode.Default, title)
+        {
+        }
 
-        /// <summary>
-        /// call before the frame is updated
-        /// </summary>
-        public abstract void OnUpdate();
+        protected override void OnLoad(EventArgs e)
+        {
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-        /// <summary>
-        /// call when the engine program is completed
-        /// </summary>
-        public abstract void OnUnload();
+            base.OnLoad(e);
+        }
+
+        protected override void OnRenderFrame(FrameEventArgs e)
+        {
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            Context.SwapBuffers();
+            base.OnRenderFrame(e);
+        }
+
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            base.OnUpdateFrame(e);
+        }
+
+        protected override void OnUnload(EventArgs e)
+        {
+            base.OnUnload(e);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            GL.Viewport(0, 0, Width, Height);
+            base.OnResize(e);
+        }
     }
 }

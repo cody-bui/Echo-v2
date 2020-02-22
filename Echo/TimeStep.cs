@@ -2,24 +2,24 @@
 
 namespace Echo
 {
-    public static class Timestep
+    public class Timestep
     {
-        private static Stopwatch stpw;
-        private static uint previousLap = 0;
-        private static uint currentLap = 0;
+        private Stopwatch stpw;
+        private uint previousLap = 0;
+        private uint currentLap = 0;
 
-        static Timestep()
+        public Timestep()
         {
             stpw = new Stopwatch();
             stpw.Start();
         }
 
-        public static uint Lap
+        public uint Lap
         {
             get => (uint)stpw.Elapsed.TotalMilliseconds;
         }
 
-        public static uint Delta
+        public uint Delta
         {
             get
             {
@@ -27,6 +27,16 @@ namespace Echo
                 currentLap = (uint)stpw.Elapsed.TotalMilliseconds;
                 return currentLap - previousLap;
             }
+        }
+
+        public void Pause()
+        {
+            stpw.Stop();
+        }
+
+        public void Resume()
+        {
+            stpw.Start();
         }
     }
 }

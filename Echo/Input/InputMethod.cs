@@ -7,9 +7,6 @@
         /// </summary>
         public bool Enabled { get; set; }
 
-        protected InputMethod()
-        {
-            Enabled = false;
-        }
+        protected InputMethod() => Enabled = false;
     }
 }

@@ -14,6 +14,30 @@ namespace Echo.Input
         private List<(string, Input)> layers = new List<(string, Input)>();
 
         /// <summary>
+        /// load all inputs
+        /// </summary>
+        /// <param name="game"></param>
+        public void OnLoad(in Engine game)
+        {
+            for (int i = 0; i < layers.Count; i++)
+            {
+                layers[i].Item2.OnLoad(game);
+            }
+        }
+
+        /// <summary>
+        /// unload all inputs
+        /// </summary>
+        /// <param name="game"></param>
+        public void OnUnload(in Engine game)
+        {
+            for (int i = 0; i < layers.Count; i++)
+            {
+                layers[i].Item2.OnUnload(game);
+            }
+        }
+
+        /// <summary>
         /// add input layer to the back
         /// </summary>
         /// <param name="name"></param>
@@ -125,6 +149,23 @@ namespace Echo.Input
             if (layers.Count > 0)
             {
                 return layers[0].Item2;
+            }
+            else
+            {
+                Log.Warning("no input layer found, return default");
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// get the top (active) input layer name
+        /// </summary>
+        /// <returns></returns>
+        public string GetTopName()
+        {
+            if (layers.Count > 0)
+            {
+                return layers[0].Item1;
             }
             else
             {

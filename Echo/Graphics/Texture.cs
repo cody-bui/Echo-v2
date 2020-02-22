@@ -88,10 +88,6 @@ namespace Echo.Graphics
 
         private bool disposed = false;
 
-        /// <summary>
-        /// dispose function
-        /// </summary>
-        /// <param name="disposing"></param>
         protected void Dispose(bool disposing)
         {
             if (!disposed)

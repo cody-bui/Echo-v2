@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Echo
 {
-    public class ComponentManager
+    public static class ComponentManager
     {
         /* component manager memory layout explained
         * basically a giant 2d array
@@ -24,12 +24,7 @@ namespace Echo
         /// <summary>
         /// component pool
         /// </summary>
-        private Dictionary<Type, List<(int, Component)>> components = new Dictionary<Type, List<(int, Component)>>();
-
-        /// <summary>
-        /// number of entities, corresponding to list_Component.Count
-        /// </summary>
-        private int size = 0;
+        private static Dictionary<Type, List<(int, Component)>> components = new Dictionary<Type, List<(int, Component)>>();
 
         /// <summary>
         /// add a component into an entity, may cause components dictionary expansion
@@ -38,19 +33,15 @@ namespace Echo
         /// <typeparam name="T">component type</typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public Component Add<T>(in Entity entity) where T : Component, new()
+        public static Component Add<T>(in Entity entity) where T : Component, new()
         {
             Type type = typeof(T);
-
-            // if dictionary doesn't contain the type, add it
             if (!components.ContainsKey(type))
             {
                 components.Add(type, new List<(int, Component)>());
             }
 
-            // actual component creation
             components[type].Add((entity.Id, new T()));
-
             return components[type][components[type].Count - 1].Item2;
         }
 
@@ -60,7 +51,7 @@ namespace Echo
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public Component Get<T>(in Entity entity) where T : Component
+        public static Component Get<T>(in Entity entity) where T : Component
         {
             Type type = typeof(T);
 
@@ -69,13 +60,15 @@ namespace Echo
             {
                 Log.Warning($"key {type.FullName} not found. return default");
             }
-            // valid case
             else
             {
                 for (int i = 0; i < components[type].Count; i++)
+                {
                     if (components[type][i].Item1 == entity.Id)
+                    {
                         return components[type][i].Item2;
-
+                    }
+                }
                 Log.Warning($"entity id {entity.Id} not found. return default");
             }
             return default;
@@ -86,7 +79,7 @@ namespace Echo
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
-        public void Remove<T>(in Entity entity) where T : Component
+        public static void Remove<T>(in Entity entity) where T : Component
         {
             Type type = typeof(T);
 
@@ -95,7 +88,6 @@ namespace Echo
             {
                 Log.Warning($"key {type.FullName} not found. delete nothing");
             }
-            // valid case
             else
             {
                 for (int i = 0; i < components[type].Count; i++)
@@ -115,20 +107,35 @@ namespace Echo
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public IEnumerable<Component> Iterator<T>() where T : Component
+        public static IEnumerable<Component> Iterator<T>() where T : Component
         {
             Type type = typeof(T);
-
-            // component not found
             if (!components.ContainsKey(type))
             {
                 Log.Warning($"key {type.FullName} not found. yield return default");
                 yield return default;
             }
 
-            // looping and return non-default values
             for (int i = 0; i < components[type].Count; i++)
                 yield return components[type][i].Item2;
+        }
+
+        /// <summary>
+        /// pair iterator
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static IEnumerable<(int, Component)> IteratorPair<T>()
+        {
+            Type type = typeof(T);
+            if (!components.ContainsKey(type))
+            {
+                Log.Warning($"key {type.FullName} not found. yield return default");
+                yield return default;
+            }
+
+            for (int i = 0; i < components[type].Count; i++)
+                yield return components[type][i];
         }
     }
 }

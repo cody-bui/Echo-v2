@@ -68,3 +68,35 @@ __note__: these components maybe merged together into one in the future
 	- `entity manager` creates entities and keep track of them *`(sucessfully implemented)`*
 		- divides entities into pool of entities: `player` pool, `npc` pool, `boxes` pool...
 		- `static int staticid` keeps track of the id -> different pools but different ids
+	- `system`: to keep track of the components and entities and mke sure that they never tick (update)
+
+- possible implementation:
+	- *e.g.:* `player` class: player class will create a new entity and add all the desired components into it
+	- `player` does not inherit from entity. it simply creates an entity (by calling the entity manager and component manager)
+	- hitbox detecting system: when an attack event is raised, it will go through every entities with a health component and check it's transform component to see if it's a hit or not
+	-> would be a bit more convenient to make entity and component manager public
+
+	- memory layout:
+		- `components` are mapped to dictionary keys, holding sequential components and entities id
+		- `entities` are stored in a sequential list -> entities held in dictionary has direct index access to the entities themselves
+	
+```c#
+// possibly inherit from system, since player itself can be a player creation system
+public class Player /* : EntityComponentSystem */
+{
+	public void CreatePlayer()
+	{
+		Entity entity = EntityManager.Add</*??? create a new entity or use a separate entity id class ???*/>();
+		ComponentManager.Add<T1...>(entity);
+	}
+}
+
+public class AttackSystem
+{
+	public void OnAttack(object sender, AttackData e)
+	{
+		// since we know which target can be affected by the attack (or cannot), 
+		// we can loop through every components and only deal damange to the type we wanted to
+	}
+}
+```

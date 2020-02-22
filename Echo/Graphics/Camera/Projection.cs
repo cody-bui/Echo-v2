@@ -16,9 +16,10 @@ namespace Echo.Graphics.Camera
         {
             switch (mode)
             {
-                case ProjectionMode.Orthographic: 
+                case ProjectionMode.Orthographic:
                     Mat = Matrix4.CreateOrthographic(x, y, 0.0f, z);
                     return;
+
                 case ProjectionMode.Perspective:
                     Mat = Matrix4.CreatePerspectiveOffCenter(0.0f, x, 0.0f, y, 0.0f, z);
                     return;

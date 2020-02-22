@@ -17,11 +17,6 @@ namespace Echo.Graphics
         /// </summary>
         private Dictionary<string, int> uniforms;
 
-        /// <summary>
-        /// shader constructor
-        /// </summary>
-        /// <param name="shaderName">name of the shader file, excluding '.' and file extension</param>
-        /// <param name="shaderTypes">shader types, used to determine file extension</param>
         public Shader(in string name, in ShaderType[] types)
         {
             _name = name;
@@ -115,10 +110,6 @@ namespace Echo.Graphics
 
         private bool disposed = false;
 
-        /// <summary>
-        /// dispose function
-        /// </summary>
-        /// <param name="disposing">to distinguish from public dispose function</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

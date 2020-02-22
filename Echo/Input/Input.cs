@@ -2,91 +2,82 @@
 {
     public class Input
     {
-        private KeyboardInput kb = default;
-        private MouseInput mouse = default;
-
-        /* 
-         * add / get/ enable / disable keyboard 
+        /*
+         * add / get/ enable / disable keyboard
          * no remove because input callback should only be set during engine's load / unload function
         */
+        public KeyboardInput Keyboard { get; private set; } = default;
+
         public void AddKeyboard()
         {
-            kb = new KeyboardInput();
-        }
-
-        public KeyboardInput Keyboard
-        {
-            get => kb;
+            Keyboard = new KeyboardInput();
         }
 
         public void EnableKeyboard()
         {
-            if (kb != default) kb.Enabled = true;
+            if (Keyboard != default) Keyboard.Enabled = true;
         }
 
         public void DisableKeyboard()
         {
-            if (kb != default) kb.Enabled = false;
+            if (Keyboard != default) Keyboard.Enabled = false;
         }
 
         /* add / get / enable / disable mouse */
+        public MouseInput Mouse { get; private set; } = default;
+
         public void AddMouse()
         {
-            mouse = new MouseInput();
-        }
-
-        public MouseInput Mouse
-        {
-            get => mouse;
+            Mouse = new MouseInput();
         }
 
         public void EnableMouse()
         {
-            if (mouse != default) mouse.Enabled = false;
+            if (Mouse != default) Mouse.Enabled = false;
         }
 
         public void DisableMouse()
         {
-            if (mouse != default) mouse.Enabled = false;
+            if (Mouse != default) Mouse.Enabled = false;
         }
 
         /// <summary>
         /// enable layer
         /// </summary>
-        public void Enable()
+        public virtual void Enable()
         {
-            if (kb != default) kb.Enabled = true;
-            if (mouse != default) mouse.Enabled = true;
+            if (Keyboard != default) Keyboard.Enabled = true;
+            if (Mouse != default) Mouse.Enabled = true;
         }
 
         /// <summary>
         /// disable layer
         /// </summary>
-        public void Disable()
+        public virtual void Disable()
         {
-            if (kb != default) kb.Enabled = false;
-            if (mouse != default) mouse.Enabled = false;
+            if (Keyboard != default) Keyboard.Enabled = false;
+            if (Mouse != default) Mouse.Enabled = false;
         }
 
         /// <summary>
         /// load input elements, call in GL.OnLoad
         /// </summary>
         /// <param name="game">pointer to game program</param>
-        public void OnLoad(Game game)
+        public virtual void OnLoad(in Engine game)
         {
-            if (kb != default)
+            if (Keyboard != default)
             {
-                game.KeyDown += kb.OnKeyDown;
-                game.KeyUp += kb.OnKeyUp;
-                game.KeyPress += kb.OnKeyPress;
+                game.KeyDown += Keyboard.OnKeyDown;
+                game.KeyUp += Keyboard.OnKeyUp;
+                game.KeyPress += Keyboard.OnKeyPress;
             }
 
-            if (mouse != default)
+            if (Mouse != default)
             {
-                game.MouseMove += mouse.OnMouseMove;
-                game.MouseDown += mouse.OnMouseDown;
-                game.MouseUp += mouse.OnMouseUp;
-                game.MouseWheel += mouse.OnMouseWheel;
+                game.MouseMove += Mouse.OnMouseMove;
+                game.MouseDown += Mouse.OnMouseDown;
+                game.MouseUp += Mouse.OnMouseUp;
+                game.MouseWheel += Mouse.OnMouseWheel;
             }
         }
 
@@ -94,21 +85,21 @@
         /// unload input element, call in GL.Unload
         /// </summary>
         /// <param name="game"></param>
-        public void OnUnload(Game game)
+        public virtual void OnUnload(in Engine game)
         {
-            if (kb != default)
+            if (Keyboard != default)
             {
-                game.KeyDown -= kb.OnKeyDown;
-                game.KeyUp -= kb.OnKeyUp;
-                game.KeyPress -= kb.OnKeyPress;
+                game.KeyDown -= Keyboard.OnKeyDown;
+                game.KeyUp -= Keyboard.OnKeyUp;
+                game.KeyPress -= Keyboard.OnKeyPress;
             }
 
-            if (mouse != default)
+            if (Mouse != default)
             {
-                game.MouseMove -= mouse.OnMouseMove;
-                game.MouseDown -= mouse.OnMouseDown;
-                game.MouseUp -= mouse.OnMouseUp;
-                game.MouseWheel -= mouse.OnMouseWheel;
+                game.MouseMove -= Mouse.OnMouseMove;
+                game.MouseDown -= Mouse.OnMouseDown;
+                game.MouseUp -= Mouse.OnMouseUp;
+                game.MouseWheel -= Mouse.OnMouseWheel;
             }
         }
     }

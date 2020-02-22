@@ -79,16 +79,15 @@
   <ItemGroup>
     <Compile Include="ComponentManager.cs" />
     <Compile Include="Component.cs" />
-    <Compile Include="Engine.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityComponentSystem.cs" />
     <Compile Include="EntityManager.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Event\EventManager.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
     <Compile Include="Graphics\Camera\View.cs" />
     <Compile Include="Graphics\IndexBuffer.cs" />
-    <Compile Include="Graphics\Renderer.cs" />
     <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\VertexArray.cs" />
@@ -101,9 +100,11 @@
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="PhysicComponents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\KeyboardInputTest.cs" />
     <Compile Include="Timestep.cs" />
+    <Compile Include="TransformComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -116,7 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="asset\Textures\" />
-    <Folder Include="Event\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

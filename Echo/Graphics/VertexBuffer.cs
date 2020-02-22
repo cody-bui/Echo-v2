@@ -1,5 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using System;
+using System.Collections.Generic;
 
 namespace Echo.Graphics
 {
@@ -7,12 +8,7 @@ namespace Echo.Graphics
     {
         private int id;
 
-        /// <summary>
-        /// vertex buffer constructor
-        /// </summary>
-        /// <param name="data">vertices postion array</param>
-        /// <param name="flag">type of buffer usage hint</param>
-        public VertexBuffer(in float[] data, BufferUsageHint hint)
+        public VertexBuffer(in float[] data, BufferUsageHint hint = BufferUsageHint.StaticDraw)
         {
             Log.Init("new vertex buffer");
 
@@ -29,10 +25,6 @@ namespace Echo.Graphics
 
         private bool disposed = false;
 
-        /// <summary>
-        /// dispose function
-        /// </summary>
-        /// <param name="disposing">to distinguish from public dispose function</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

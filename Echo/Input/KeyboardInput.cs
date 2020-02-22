@@ -13,19 +13,21 @@ namespace Echo.Input
 
         public void OnKeyDown(object sender, KeyboardKeyEventArgs e)
         {
-            if (!keys.Contains(e.Key))
-                keys.Add(e.Key);
-
             if (Enabled)
+            {
+                if (!keys.Contains(e.Key))
+                    keys.Add(e.Key);
                 KeyboardEventHandler?.Invoke(sender, keys);
+            }
         }
 
         public void OnKeyUp(object sender, KeyboardKeyEventArgs e)
         {
-            keys.Remove(e.Key);
-
             if (Enabled)
+            {
+                keys.Remove(e.Key);
                 KeyboardEventHandler?.Invoke(sender, keys);
+            }
         }
 
         public void OnKeyPress(object sender, KeyPressEventArgs e)

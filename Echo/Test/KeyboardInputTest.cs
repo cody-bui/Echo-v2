@@ -31,7 +31,7 @@ namespace Echo.Test
         {
             Console.Write("layer 1: ");
             for (int i = 0; i < e.Count; i++)
-                Console.Write($"e[i] ");
+                Console.Write($"{e[i]} ");
             Console.WriteLine("");
         }
 
@@ -39,7 +39,7 @@ namespace Echo.Test
         {
             Console.Write("layer 2: ");
             for (int i = 0; i < e.Count; i++)
-                Console.Write($"e[i] ");
+                Console.Write($"{e[i]} ");
             Console.WriteLine("");
         }
     }
