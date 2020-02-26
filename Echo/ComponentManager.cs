@@ -4,31 +4,26 @@ using System.Reflection;
 
 namespace Echo
 {
-    /* component array explained
-
-     * ComponentArray takes a struct with Component attribute as generic argument
-
+    /* component manager explained
+     * component manager takes a struct with Component attribute as generic argument
      * entity will be the index to access the data inside the component
-
      * components are divided into pools based on the type of entity that hold them:
      * EntityType1 | component, component, component...
        EntityType2 | component, component, component, component...
        EntityType3 | component...
-
      * looping by going through every component of a type then every type
-
      * to remove a component, replace it with the final component of the same type then remove
        that final component, same way with the entity manager -> sync up with it
     */
 
-    public class ComponentArray<T> where T : new()
+    public static class ComponentManager<T> where T : new()
     {
-        private Dictionary<Type, List<T>> components;
+        private static Dictionary<Type, List<T>> components;
 
         /// <summary>
         /// check if T is a component attribute
         /// </summary>
-        public ComponentArray()
+        static ComponentManager()
         {
             Type type = typeof(T);
             if (!type.IsDefined(typeof(Component)))
@@ -46,7 +41,7 @@ namespace Echo
         /// iterator loops through every component of one entity type
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<T> ComponentIterator()
+        public static IEnumerable<T> ComponentIterator()
         {
             // loop through every entity of each entity type
             foreach (KeyValuePair<Type, List<T>> component in components)
@@ -59,7 +54,7 @@ namespace Echo
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public T Add(in Entity entity)
+        public static T Add(in Entity entity)
         {
             Type type = entity.GetType();
 
@@ -80,7 +75,7 @@ namespace Echo
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public T Get(in Entity entity)
+        public static T Get(in Entity entity)
         {
             Type type = entity.GetType();
 
@@ -106,7 +101,7 @@ namespace Echo
         /// then delete the final component
         /// </summary>
         /// <param name="entity"></param>
-        internal void Remove(in Entity entity)
+        internal static void Remove(in Entity entity)
         {
             Type type = entity.GetType();
 

@@ -77,9 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentManager.cs" />
+    <Compile Include="ComponentArray.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="ComponentManager.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="EntityArray.cs" />
     <Compile Include="EntityComponentSystem.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Event\EventManager.cs" />
