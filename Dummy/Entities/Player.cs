@@ -6,10 +6,8 @@ namespace Dummy.Entities
 {
     public class Player : Entity
     {
-        public Player(int id) : base(id)
+        public Player(int id) : base(id) 
         {
-            ComponentManager.Add<TransformComponent>(this);
-            ComponentManager.Add<HealthComponent>(this);
         }
     }
 }

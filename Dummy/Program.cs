@@ -2,14 +2,11 @@
 
 namespace Dummy
 {
-    /// <summary>
-    /// main program
-    /// </summary>
     internal class Program
     {
         private static void Main(string[] args)
         {
-            using (Engine game = new Engine(1600, 900, "Dummy App"))
+            using (GameLoop game = new GameLoop(800, 450, "Echo") { engine = new Engine() })
             {
                 game.Run();
             }

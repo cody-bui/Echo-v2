@@ -83,7 +83,8 @@
     <Compile Include="EntityComponentSystem.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Event\EventManager.cs" />
-    <Compile Include="Engine.cs" />
+    <Compile Include="EchoEngine.cs" />
+    <Compile Include="GameLoop.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
     <Compile Include="Graphics\Camera\View.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="PhysicComponents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\KeyboardInputTest.cs" />
     <Compile Include="Timestep.cs" />

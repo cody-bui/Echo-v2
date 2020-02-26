@@ -1,9 +1,9 @@
-﻿using System;
-using OpenTK;
+﻿using OpenTK;
 
 namespace Echo
 {
-    public class TransformComponent : Component
+    [Component]
+    public struct TransformComponent
     {
         public Matrix4 Transform { get; set; }
         public Matrix4 Rotate { get; set; }

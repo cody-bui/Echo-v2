@@ -1,7 +1,9 @@
-﻿namespace Echo
+﻿using System;
+
+namespace Echo
 {
-    public abstract class Component
+    [AttributeUsage(AttributeTargets.Struct)]
+    public sealed class Component : Attribute
     {
-        private bool Enabled { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Echo.Input
         /// load all inputs
         /// </summary>
         /// <param name="game"></param>
-        public void OnLoad(in Engine game)
+        public void OnLoad(in GameLoop game)
         {
             for (int i = 0; i < layers.Count; i++)
             {
@@ -29,7 +29,7 @@ namespace Echo.Input
         /// unload all inputs
         /// </summary>
         /// <param name="game"></param>
-        public void OnUnload(in Engine game)
+        public void OnUnload(in GameLoop game)
         {
             for (int i = 0; i < layers.Count; i++)
             {

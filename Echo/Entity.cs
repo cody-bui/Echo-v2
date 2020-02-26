@@ -1,12 +1,10 @@
-﻿namespace Echo
+﻿using System;
+
+namespace Echo
 {
-    public abstract class Entity
+    public class Entity
     {
         public int Id { get; private set; }
-
-        public Entity(int id)
-        {
-            Id = id;
-        }
+        public Entity(int _id) => Id = _id;
     }
 }

@@ -63,7 +63,7 @@
         /// load input elements, call in GL.OnLoad
         /// </summary>
         /// <param name="game">pointer to game program</param>
-        public virtual void OnLoad(in Engine game)
+        public virtual void OnLoad(in GameLoop game)
         {
             if (Keyboard != default)
             {
@@ -85,7 +85,7 @@
         /// unload input element, call in GL.Unload
         /// </summary>
         /// <param name="game"></param>
-        public virtual void OnUnload(in Engine game)
+        public virtual void OnUnload(in GameLoop game)
         {
             if (Keyboard != default)
             {
