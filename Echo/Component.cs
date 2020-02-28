@@ -2,7 +2,7 @@
 
 namespace Echo
 {
-    [AttributeUsage(AttributeTargets.Struct)]
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class Component : Attribute
     {
     }

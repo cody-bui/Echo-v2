@@ -3,7 +3,7 @@
 namespace Echo
 {
     [Component]
-    public struct TransformComponent
+    public class TransformComponent
     {
         public Matrix4 Transform { get; set; }
         public Matrix4 Rotate { get; set; }

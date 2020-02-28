@@ -18,7 +18,7 @@ namespace Echo
 
     public static class ComponentManager<T> where T : new()
     {
-        private static Dictionary<Type, List<T>> components;
+        public static Dictionary<Type, List<T>> components;
 
         /// <summary>
         /// check if T is a component attribute
@@ -43,10 +43,10 @@ namespace Echo
         /// <returns></returns>
         public static IEnumerable<T> ComponentIterator()
         {
-            // loop through every entity of each entity type
             foreach (KeyValuePair<Type, List<T>> component in components)
                 for (int m = 0; m < component.Value.Count; m++)
-                    yield return component.Value[m];
+                    if (!component.Value[m].Equals(default))
+                        yield return component.Value[m];
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Echo
             // if type not yet existed
             if (!components.ContainsKey(type))
             {
-                Log.Warning($"new type of entity {type.FullName} added");
+                Log.Info($"new type of entity {type.FullName} added");
                 components.Add(type, new List<T>());
             }
 
@@ -86,7 +86,7 @@ namespace Echo
                 throw new ArgumentException();
             }
 
-            // id out of bound
+            // bound check
             if (entity.Id >= components[type].Count)
             {
                 Log.Warning($"{entity.Id} out of bound");
@@ -101,7 +101,7 @@ namespace Echo
         /// then delete the final component
         /// </summary>
         /// <param name="entity"></param>
-        internal static void Remove(in Entity entity)
+        public static void Remove(in Entity entity)
         {
             Type type = entity.GetType();
 
@@ -112,18 +112,18 @@ namespace Echo
                 throw new ArgumentException();
             }
 
-            // id out of bound
-            if (entity.Id >= components[type].Count)
+            var cp = components[type];
+
+            // bound check
+            if (entity.Id >= cp.Count)
             {
                 Log.Warning($"{entity.Id} out of bound");
                 throw new IndexOutOfRangeException();
             }
 
-            // replace that entity's component with the final entity of that type
-            components[type][entity.Id] = components[type][components[type].Count - 1];
-
-            // delete the final entity's component
-            components[type].RemoveAt(components[type].Count - 1);
+            cp[entity.Id] = default;                // null it to delete it
+            cp[entity.Id] = cp[cp.Count - 1];       // replace it
+            cp.RemoveAt(cp.Count - 1);              // pop back
         }
     }
 }

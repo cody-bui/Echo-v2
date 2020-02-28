@@ -9,9 +9,9 @@ namespace Echo
      * this in turn, calls the component managers to replace the components the same way
     */
 
-    public static class EntityManager<T> where T : Entity
+    public static class EntityManager<T> where T : Entity, new()
     {
-        private static List<T> entities = new List<T>();
+        public static List<T> entities = new List<T>();
 
         /// <summary>
         /// to iterate through every entity
@@ -31,7 +31,7 @@ namespace Echo
         /// <returns></returns>
         public static T Add()
         {
-            T t = (T)Activator.CreateInstance(typeof(T), entities.Count);
+            T t = new T() { Id = entities.Count };
             entities.Add(t);
             return t;
         }
@@ -50,6 +50,11 @@ namespace Echo
             }
             else
             {
+                entities[id].Dispose();                         // remove all of it's components
+                entities[id] = null;                            // null to delete it
+                entities[id] = entities[entities.Count - 1];    // replace it
+                entities[id].Id = id;                           // replace id as index changed
+                entities.RemoveAt(entities.Count - 1);          // pop back (not actually delete it)
             }
         }
 

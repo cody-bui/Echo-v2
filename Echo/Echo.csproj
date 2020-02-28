@@ -77,13 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentArray.cs" />
-    <Compile Include="Component.cs" />
     <Compile Include="ComponentManager.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="EntityArray.cs" />
-    <Compile Include="EntityComponentSystem.cs" />
     <Compile Include="EntityManager.cs" />
+    <Compile Include="EntityComponentSystem.cs" />
     <Compile Include="Event\EventManager.cs" />
     <Compile Include="EchoEngine.cs" />
     <Compile Include="GameLoop.cs" />
@@ -96,9 +94,6 @@
     <Compile Include="Graphics\VertexArray.cs" />
     <Compile Include="Graphics\VertexBuffer.cs" />
     <Compile Include="Graphics\VertexBufferLayout.cs" />
-    <Compile Include="Input\Input.cs" />
-    <Compile Include="Input\InputLayer.cs" />
-    <Compile Include="Input\InputMethod.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Loader.cs" />

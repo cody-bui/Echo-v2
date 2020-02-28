@@ -6,7 +6,7 @@ namespace Dummy
     {
         private static void Main(string[] args)
         {
-            using (GameLoop game = new GameLoop(800, 450, "Echo") { engine = new Engine() })
+            using (GameLoop game = new GameLoop(1600, 900, "Echo") { engine = new Engine() })
             {
                 game.Run();
             }

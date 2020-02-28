@@ -3,7 +3,7 @@
 namespace Dummy.Components
 {
     [Component]
-    public struct HealthComponent
+    public class HealthComponent
     {
         public float MaxHealth { get; set; }
         public float CurrentHealth { get; set; }
