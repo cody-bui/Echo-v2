@@ -5,13 +5,17 @@ using System;
 
 namespace Echo
 {
-    public sealed class GameLoop : GameWindow
+    public sealed class Game : GameWindow
     {
         public EchoEngine engine { private get; set; }
 
-        public GameLoop(int width, int height, in string title) : base(width, height, GraphicsMode.Default, title)
+        public Game(int width, int height, in string title) : base(width, height, GraphicsMode.Default, title)
         {
             Log.Init("Game");
+
+            GL.Enable(EnableCap.Multisample);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -25,7 +29,7 @@ namespace Echo
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            engine.OnRenderFrame(this);
+            engine.OnRender(this);
 
             Context.SwapBuffers();
             base.OnRenderFrame(e);
@@ -33,7 +37,7 @@ namespace Echo
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            engine.OnUpdateFrame(this);
+            engine.OnUpdate(this);
             base.OnUpdateFrame(e);
         }
 

@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Dummy.Components;
 using Echo;
-using Dummy.Components;
 
 namespace Dummy.Entities
 {

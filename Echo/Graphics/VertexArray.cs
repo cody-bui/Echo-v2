@@ -9,13 +9,11 @@ namespace Echo.Graphics
 
         public VertexArray()
         {
-            Log.Init("new vertex array");
             id = GL.GenVertexArray();
         }
 
         ~VertexArray()
         {
-            Log.Delete("delete vertex array");
             GL.DeleteVertexArray(id);
         }
 
@@ -29,7 +27,6 @@ namespace Echo.Graphics
         {
             if (!disposed)
             {
-                Log.Delete("delete vertex array");
                 GL.DeleteVertexArray(id);
                 disposed = true;
             }

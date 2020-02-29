@@ -18,7 +18,7 @@ namespace Echo
 
     public static class ComponentManager<T> where T : new()
     {
-        public static Dictionary<Type, List<T>> components;
+        private static Dictionary<Type, List<T>> components;
 
         /// <summary>
         /// check if T is a component attribute

@@ -21,8 +21,8 @@ namespace Echo
             EngineDir = ProjectDir + @"\..\Echo";
             CurrentDir = EngineDir;
 
-            Asset = CurrentDir + @"\asset";
-            Lib = CurrentDir + @"\lib";
+            Asset = CurrentDir + @"\Asset";
+            Lib = CurrentDir + @"\Lib";
         }
 
         /// <summary>

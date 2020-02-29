@@ -11,7 +11,7 @@ namespace Echo
 
     public static class EntityManager<T> where T : Entity, new()
     {
-        public static List<T> entities = new List<T>();
+        private static List<T> entities = new List<T>();
 
         /// <summary>
         /// to iterate through every entity

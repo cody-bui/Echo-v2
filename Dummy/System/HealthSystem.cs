@@ -1,7 +1,5 @@
 ﻿using Echo;
-using Dummy.Components;
-using System;
-using System.Collections.Generic;
+
 namespace Dummy.System
 {
     public class HealthSystem : EntityComponentSystem

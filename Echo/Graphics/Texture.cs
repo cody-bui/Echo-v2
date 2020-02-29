@@ -5,6 +5,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Echo.Graphics
 {
@@ -14,8 +15,6 @@ namespace Echo.Graphics
 
         public Texture(string file, TextureWrapMode wrap = TextureWrapMode.ClampToBorder, bool pixelated = false)
         {
-            Log.Init("new texture");
-
             // gen texture
             id = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, id);
@@ -31,7 +30,16 @@ namespace Echo.Graphics
                 (pixelated ? TextureMagFilter.Nearest : TextureMagFilter.Linear));
 
             // load the image
-            Image<Rgba32> image = (Image<Rgba32>)Image.Load($@"{Loader.Asset}\Textures\{file}");
+            Image<Rgba32> image = null;
+            try
+            {
+                image = (Image<Rgba32>)Image.Load($@"{Loader.Asset}\Textures\{file}");
+            }
+            catch (FileNotFoundException e)
+            {
+                Log.Warning($"texture {file} not found");
+                throw new FileNotFoundException();
+            }
 
             // flip the image vertically bc opengl loads image reversed
             image.Mutate(x => x.Flip(FlipMode.Vertical));
@@ -51,6 +59,8 @@ namespace Echo.Graphics
 
             // load texture
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
+
+            Log.Init("texture loaded");
         }
 
         ~Texture()
@@ -92,9 +102,10 @@ namespace Echo.Graphics
         {
             if (!disposed)
             {
-                Log.Delete("delete texture");
                 GL.DeleteTexture(id);
             }
+
+            Log.Delete("texture deleted");
         }
 
         public void Dispose()

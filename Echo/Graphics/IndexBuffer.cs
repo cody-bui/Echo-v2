@@ -3,14 +3,12 @@ using System;
 
 namespace Echo.Graphics
 {
-    internal class IndexBuffer
+    public class IndexBuffer
     {
         private int id;
 
         public IndexBuffer(in uint[] data, BufferUsageHint hint = BufferUsageHint.StaticDraw)
         {
-            Log.Init("new index buffer");
-
             id = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, id);
             GL.BufferData(BufferTarget.ElementArrayBuffer, data.Length * sizeof(uint), data, hint);
@@ -18,7 +16,6 @@ namespace Echo.Graphics
 
         ~IndexBuffer()
         {
-            Log.Delete("delete index buffer");
             GL.DeleteBuffer(id);
         }
 
@@ -28,7 +25,6 @@ namespace Echo.Graphics
         {
             if (!disposed)
             {
-                Log.Delete("delete index buffer");
                 GL.DeleteBuffer(id);
                 disposed = true;
             }

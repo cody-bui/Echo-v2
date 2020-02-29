@@ -1,10 +1,9 @@
-﻿using OpenTK;
-using Echo;
+﻿using Echo;
 
 namespace Dummy.Components
 {
     [Component]
-    public class SpriteComponent
+    public struct SpriteComponent
     {
     }
 }

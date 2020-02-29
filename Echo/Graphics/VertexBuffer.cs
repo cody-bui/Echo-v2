@@ -1,6 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using System;
-using System.Collections.Generic;
 
 namespace Echo.Graphics
 {
@@ -8,18 +7,33 @@ namespace Echo.Graphics
     {
         private int id;
 
-        public VertexBuffer(in float[] data, BufferUsageHint hint = BufferUsageHint.StaticDraw)
+        /// <summary>
+        /// for meshing coordinate system
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="size"></param>
+        /// <param name="hint"></param>
+        public VertexBuffer(IntPtr data, int size, BufferUsageHint hint = BufferUsageHint.StaticDraw)
         {
-            Log.Init("new vertex buffer");
-
             id = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, id);
-            GL.BufferData(BufferTarget.ArrayBuffer, data.Length * sizeof(float), data, hint);
+            GL.BufferData(BufferTarget.ArrayBuffer, size, data, hint);
+        }
+
+        /// <summary>
+        /// for normal coordination system
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="hint"></param>
+        public VertexBuffer(in float[] data, BufferUsageHint hint = BufferUsageHint.StaticDraw)
+        {
+            id = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, id);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * data.Length, data, hint);
         }
 
         ~VertexBuffer()
         {
-            Log.Delete("delete vertex buffer");
             GL.DeleteBuffer(id);
         }
 
@@ -29,7 +43,6 @@ namespace Echo.Graphics
         {
             if (!disposed)
             {
-                Log.Delete("delete vertex buffer");
                 GL.DeleteBuffer(id);
                 disposed = true;
             }

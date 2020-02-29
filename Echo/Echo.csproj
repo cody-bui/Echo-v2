@@ -39,6 +39,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ImGui.NET, Version=1.75.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImGui.NET.1.75.0\lib\netstandard2.0\ImGui.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -84,36 +87,44 @@
     <Compile Include="EntityComponentSystem.cs" />
     <Compile Include="Event\EventManager.cs" />
     <Compile Include="EchoEngine.cs" />
-    <Compile Include="GameLoop.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
     <Compile Include="Graphics\Camera\View.cs" />
     <Compile Include="Graphics\IndexBuffer.cs" />
+    <Compile Include="Graphics\Mesh\Vertex.cs" />
     <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\VertexArray.cs" />
     <Compile Include="Graphics\VertexBuffer.cs" />
     <Compile Include="Graphics\VertexBufferLayout.cs" />
+    <Compile Include="Input\InputLayer.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
+    <Compile Include="Input\KeysEventArgs.cs" />
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemAsset\MovementSystem.cs" />
     <Compile Include="Test\KeyboardInputTest.cs" />
     <Compile Include="Timestep.cs" />
-    <Compile Include="TransformComponent.cs" />
+    <Compile Include="ComponentAsset\TransformComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="asset\Shaders\color.frag" />
-    <None Include="asset\Shaders\color.vert" />
-    <None Include="asset\Shaders\texture.frag" />
-    <None Include="asset\Shaders\texture.vert" />
+    <None Include="Asset\Shaders\color.frag" />
+    <None Include="Asset\Shaders\color.vert" />
+    <None Include="Asset\Shaders\texture.frag" />
+    <None Include="Asset\Shaders\texture.vert" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="asset\Textures\" />
+    <Folder Include="Asset\Textures\" />
+    <Folder Include="EntityAsset\" />
+    <Folder Include="Graphics\Renderer\" />
+    <Folder Include="Lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -121,5 +132,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.Toolset.3.1.0\build\Microsoft.Net.Compilers.Toolset.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.Toolset.3.1.0\build\Microsoft.Net.Compilers.Toolset.props'))" />
+    <Error Condition="!Exists('..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets'))" />
   </Target>
+  <Import Project="..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets')" />
 </Project>
