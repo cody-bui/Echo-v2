@@ -92,12 +92,12 @@
     <Compile Include="Graphics\Camera\Projection.cs" />
     <Compile Include="Graphics\Camera\View.cs" />
     <Compile Include="Graphics\IndexBuffer.cs" />
+    <Compile Include="Graphics\Mesh\Mesh.cs" />
     <Compile Include="Graphics\Mesh\Vertex.cs" />
     <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\VertexArray.cs" />
     <Compile Include="Graphics\VertexBuffer.cs" />
-    <Compile Include="Graphics\VertexBufferLayout.cs" />
     <Compile Include="Input\InputLayer.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
@@ -110,6 +110,7 @@
     <Compile Include="Test\KeyboardInputTest.cs" />
     <Compile Include="Timestep.cs" />
     <Compile Include="ComponentAsset\TransformComponent.cs" />
+    <Compile Include="Graphics\VertexArrayLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

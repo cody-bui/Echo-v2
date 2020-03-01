@@ -9,10 +9,10 @@ namespace Dummy
     public class Engine : EchoEngine
     {
         private float[] vertices = {
-             0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+             1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+             1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+            -1.0f,  1.0f, 0.0f, 0.0f, 1.0f
         };
 
         private uint[] indices = {
@@ -20,10 +20,9 @@ namespace Dummy
             1, 2, 3
         };
 
-        private VertexBuffer vb;
+        private VertexBuffer<float> vb;
         private IndexBuffer ib;
         private VertexArray va;
-        private VertexBufferLayout vbl;
         private Shader shader;
         private Texture texture1;
         private Texture texture2;
@@ -35,25 +34,21 @@ namespace Dummy
 
             Loader.UseProjectPath();
             texture1 = new Texture("texture1.png");
-            texture1.Bind(true);
+            texture1.Bind(0);
             shader.SetUniform("tex0", 0);
 
             texture2 = new Texture("texture2.png");
-            texture2.Bind(false);
+            texture2.Bind(1);
             shader.SetUniform("tex1", 1);
 
-            IntPtr ptr = Marshal.AllocHGlobal(sizeof(float) * 20);
-            Marshal.Copy(vertices, 0, ptr, vertices.Length);
-            vb = new VertexBuffer(ptr, sizeof(float) * 20);
-
-            vbl = new VertexBufferLayout();
-            vbl.Add<float>(3);
-            vbl.Add<float>(2);
+            vb = new VertexBuffer<float>(vertices, sizeof(float) * 20);
 
             va = new VertexArray();
-            va.AddBuffer(in vb, in vbl);
+            va.Add<float>(VertexAttribPointerType.Float, 3);
+            va.Add<float>(VertexAttribPointerType.Float, 2);
+            va.Set();
 
-            ib = new IndexBuffer(in indices, BufferUsageHint.StaticDraw);
+            ib = new IndexBuffer(indices, BufferUsageHint.StaticDraw);
         }
 
         public override void OnRender(in Game game)

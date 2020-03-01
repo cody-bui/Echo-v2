@@ -1,5 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Echo.Graphics
 {
@@ -7,9 +9,57 @@ namespace Echo.Graphics
     {
         private int id;
 
+        private List<VertexArrayLayout> element = new List<VertexArrayLayout>();
+        private int stride = 0;
+
         public VertexArray()
         {
             id = GL.GenVertexArray();
+        }
+
+        /// <summary>
+        /// extend the vertex array layout
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <param name="count"></param>
+        public void Add<T>(VertexAttribPointerType type, int count) where T : struct
+        {
+            element.Add(new VertexArrayLayout(type, Marshal.SizeOf<T>(), count, false));
+            stride += sizeof(float) * count;
+        }
+
+        /// <summary>
+        /// set the final layout using previous additions
+        /// </summary>
+        public void Set()
+        {
+            GL.BindVertexArray(id);
+            int offset = 0;
+
+            for (int i = 0; i < element.Count; i++)
+            {
+                GL.EnableVertexAttribArray(i);
+                GL.VertexAttribPointer(
+                    i,
+                    element[i].Count,
+                    element[i].Type,
+                    element[i].Normalized,
+                    stride,
+                    offset
+                );
+                offset += element[i].Count * element[i].Data;
+            }
+        }
+
+        public void Bind()
+        {
+            GL.BindVertexArray(id);
+        }
+
+        public void Unbind()
+        {
+            GL.BindVertexArray(0);
         }
 
         ~VertexArray()
@@ -36,44 +86,6 @@ namespace Echo.Graphics
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// add buffer
-        /// </summary>
-        /// <param name="vb">vertex buffer</param>
-        /// <param name="vbl">vertex buffer layout</param>
-        public void AddBuffer(in VertexBuffer vb, in VertexBufferLayout vbl)
-        {
-            GL.BindVertexArray(id);
-            vb.Bind();
-
-            var element = vbl.Element;
-            int offset = 0;
-
-            for (int i = 0; i < element.Count; i++)
-            {
-                GL.EnableVertexAttribArray(i);
-                GL.VertexAttribPointer(
-                    i,
-                    element[i].Count,
-                    element[i].Type,
-                    element[i].Normalized,
-                    vbl.Stride,
-                    offset
-                );
-                offset += element[i].Count * element[i].ByteSize;
-            }
-        }
-
-        public void Bind()
-        {
-            GL.BindVertexArray(id);
-        }
-
-        public void Unbind()
-        {
-            GL.BindVertexArray(0);
         }
     }
 }

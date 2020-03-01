@@ -3,33 +3,15 @@ using System;
 
 namespace Echo.Graphics
 {
-    public class VertexBuffer
+    public class VertexBuffer<T> where T : struct
     {
         private int id;
 
-        /// <summary>
-        /// for meshing coordinate system
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="size"></param>
-        /// <param name="hint"></param>
-        public VertexBuffer(IntPtr data, int size, BufferUsageHint hint = BufferUsageHint.StaticDraw)
+        public VertexBuffer(T[] data, int size, BufferUsageHint hint = BufferUsageHint.StaticDraw)
         {
             id = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, id);
-            GL.BufferData(BufferTarget.ArrayBuffer, size, data, hint);
-        }
-
-        /// <summary>
-        /// for normal coordination system
-        /// </summary>
-        /// <param name="data"></param>
-        /// <param name="hint"></param>
-        public VertexBuffer(in float[] data, BufferUsageHint hint = BufferUsageHint.StaticDraw)
-        {
-            id = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, id);
-            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * data.Length, data, hint);
+            GL.BufferData<T>(BufferTarget.ArrayBuffer, size, data, hint);
         }
 
         ~VertexBuffer()

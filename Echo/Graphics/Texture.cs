@@ -68,32 +68,30 @@ namespace Echo.Graphics
             GL.DeleteTexture(id);
         }
 
-        /// <summary>
-        /// bind texture to unit 0 or 1
-        /// </summary>
-        /// <param name="first">is first unit</param>
-        public void Bind(bool first)
+        public void Bind(int unit)
         {
-            if (first)
-                GL.ActiveTexture(TextureUnit.Texture0);
+            if (unit == 0 || unit == 1)
+            {
+                GL.ActiveTexture(TextureUnit.Texture0 + unit + 1);
+                GL.BindTexture(TextureTarget.Texture2D, id);
+            }
             else
-                GL.ActiveTexture(TextureUnit.Texture1);
-
-            GL.BindTexture(TextureTarget.Texture2D, id);
+            {
+                Log.Warning($"unit {unit} out of range, nothing binded");
+            }
         }
 
-        /// <summary>
-        /// unbind texture from unit 0 or 1
-        /// </summary>
-        /// <param name="first">is first unit</param>
-        public void Unbind(bool first)
+        public void Unbind(int unit)
         {
-            if (first)
-                GL.ActiveTexture(TextureUnit.Texture0);
+            if (unit == 0 || unit == 1)
+            {
+                GL.ActiveTexture(TextureUnit.Texture0 + unit + 1);
+                GL.BindTexture(TextureTarget.Texture2D, id);
+            }
             else
-                GL.ActiveTexture(TextureUnit.Texture1);
-
-            GL.BindTexture(TextureTarget.Texture2D, id);
+            {
+                Log.Warning($"unit {unit} out of range, nothing binded");
+            }
         }
 
         private bool disposed = false;
