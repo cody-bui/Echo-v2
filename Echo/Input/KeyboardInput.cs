@@ -12,7 +12,7 @@ namespace Echo.Input
 
         private KeysEventArgs keys = new KeysEventArgs();
 
-        public void OnKeyDown(object sender, KeyboardKeyEventArgs e)
+        internal void OnKeyDown(object sender, KeyboardKeyEventArgs e)
         {
             keys.Keys.Add(e.Key);
             keys.Alt = e.Alt;
@@ -22,7 +22,7 @@ namespace Echo.Input
             KeysEventHandler?.Invoke(this, keys);
         }
 
-        public void OnKeyUp(object sender, KeyboardKeyEventArgs e)
+        internal void OnKeyUp(object sender, KeyboardKeyEventArgs e)
         {
             keys.Keys.Remove(e.Key);
             keys.Alt = e.Alt;
@@ -32,7 +32,7 @@ namespace Echo.Input
             KeysEventHandler?.Invoke(this, keys);
         }
 
-        public void OnKeyPress(object sender, KeyPressEventArgs e)
+        internal void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             KeyTypeEventHandler?.Invoke(this, e.KeyChar);
         }

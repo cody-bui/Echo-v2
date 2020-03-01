@@ -53,6 +53,7 @@
     <Compile Include="System\HealthSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Test\EntityComponentSystemTest.cs" />
+    <Compile Include="Test\SimpleRenderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Echo\Echo.csproj">
@@ -64,6 +65,9 @@
     <Folder Include="Lib\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
     </Reference>

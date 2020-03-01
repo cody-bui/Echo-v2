@@ -31,6 +31,9 @@ namespace Echo
         public static void UseEnginePath()
         {
             CurrentDir = EngineDir;
+
+            Asset = CurrentDir + @"\Asset";
+            Lib = CurrentDir + @"\Lib";
         }
 
         /// <summary>
@@ -39,6 +42,9 @@ namespace Echo
         public static void UseProjectPath()
         {
             CurrentDir = ProjectDir;
+
+            Asset = CurrentDir + @"\Asset";
+            Lib = CurrentDir + @"\Lib";
         }
     }
 }

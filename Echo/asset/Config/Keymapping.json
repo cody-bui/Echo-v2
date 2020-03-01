@@ -1,0 +1,8 @@
+﻿{
+  "Move Up": "W",
+  "Move Down": "S",
+  "Move Left": "A",
+  "Move Right": "D",
+  "Zoom In": "-",
+  "Zoom Out": "+"
+}

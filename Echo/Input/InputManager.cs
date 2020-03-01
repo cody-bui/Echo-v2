@@ -83,5 +83,23 @@ namespace Echo.Input
                 throw new IndexOutOfRangeException();
             }
         }
+
+        /// <summary>
+        /// get a layer, use in conjunction with active layer to get active layer
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static InputLayer Get(in string name)
+        {
+            if (!input.ContainsKey(name))
+            {
+                Log.Error($"layer {name} not found");
+                throw new ArgumentException();
+            }
+            else
+            {
+                return input[name];
+            }
+        }
     }
 }

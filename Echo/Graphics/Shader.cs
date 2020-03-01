@@ -157,32 +157,35 @@ namespace Echo.Graphics
             return location;
         }
 
+        public void SetUniform(in string name, ref Matrix4 mat)
+            => GL.UniformMatrix4(UniformLocation(name), false, ref mat);
+        
         public void SetUniform(in string name, in Vector4 vec)
-            => GL.Uniform4(UniformLocation(in name), vec);
+            => GL.Uniform4(UniformLocation(name), vec);
 
         public void SetUniform(in string name, float v1, float v2, float v3, float v4)
-            => GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
+            => GL.Uniform4(UniformLocation(name), v1, v2, v3, v4);
 
         public void SetUniform(in string name, int v1, int v2, int v3, int v4)
-            => GL.Uniform4(UniformLocation(in name), v1, v2, v3, v4);
+            => GL.Uniform4(UniformLocation(name), v1, v2, v3, v4);
 
         public void SetUniform(in string name, in Vector3 vec)
-            => GL.Uniform3(UniformLocation(in name), vec);
+            => GL.Uniform3(UniformLocation(name), vec);
 
         public void SetUniform(in string name, float v1, float v2, float v3)
-            => GL.Uniform3(UniformLocation(in name), v1, v2, v3);
+            => GL.Uniform3(UniformLocation(name), v1, v2, v3);
 
         public void SetUniform(in string name, int v1, int v2, int v3)
-            => GL.Uniform3(UniformLocation(in name), v1, v2, v3);
+            => GL.Uniform3(UniformLocation(name), v1, v2, v3);
 
         public void SetUniform(in string name, in Vector2 vec)
-            => GL.Uniform2(UniformLocation(in name), vec);
+            => GL.Uniform2(UniformLocation(name), vec);
 
         public void SetUniform(in string name, float v1, float v2)
-            => GL.Uniform2(UniformLocation(in name), v1, v2);
+            => GL.Uniform2(UniformLocation(name), v1, v2);
 
         public void SetUniform(in string name, int v1, int v2)
-            => GL.Uniform2(UniformLocation(in name), v1, v2);
+            => GL.Uniform2(UniformLocation(name), v1, v2);
 
         public void SetUniform(in string name, float val)
             => GL.Uniform1(UniformLocation(name), val);

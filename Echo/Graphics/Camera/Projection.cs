@@ -2,17 +2,17 @@
 
 namespace Echo.Graphics.Camera
 {
-    public class Projection
+    internal class Projection
     {
-        public enum ProjectionMode
+        internal enum ProjectionMode
         {
             Orthographic = 0,
             Perspective,
         }
 
-        public Matrix4 Mat { get; private set; }
+        internal Matrix4 Mat { get; private set; }
 
-        public Projection(ProjectionMode mode, float x, float y, float z)
+        internal Projection(ProjectionMode mode, float x, float y, float z)
         {
             switch (mode)
             {

@@ -88,6 +88,7 @@
     <Compile Include="Event\EventManager.cs" />
     <Compile Include="EchoEngine.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Graphics\Camera\CameraController.cs" />
     <Compile Include="Graphics\Camera\Model.cs" />
     <Compile Include="Graphics\Camera\Projection.cs" />
     <Compile Include="Graphics\Camera\View.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Input\InputLayer.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
+    <Compile Include="Input\KeyMapping.cs" />
     <Compile Include="Input\KeysEventArgs.cs" />
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Loader.cs" />
@@ -114,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Asset\Config\Keymapping.json" />
     <None Include="Asset\Shaders\color.frag" />
     <None Include="Asset\Shaders\color.vert" />
     <None Include="Asset\Shaders\texture.frag" />

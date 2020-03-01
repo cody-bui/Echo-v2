@@ -2,32 +2,32 @@
 
 namespace Echo.Graphics.Camera
 {
-    public class View
+    internal class View
     {
-        public Matrix4 Mat { get; private set; }
+        internal Matrix4 Mat { get; private set; }
 
-        public View()
-            => Mat = Matrix4.Identity;
+        internal View()
+            => Mat = new Matrix4();
 
-        public void RotateX(float angle, bool rad = false)
+        internal void RotateX(float angle, bool rad = false)
             => Mat *= Matrix4.CreateRotationX(rad ? angle : MathHelper.DegreesToRadians(angle));
 
-        public void RotateY(float angle, bool rad = false)
+        internal void RotateY(float angle, bool rad = false)
             => Mat *= Matrix4.CreateRotationY(rad ? angle : MathHelper.DegreesToRadians(angle));
 
-        public void RotateZ(float angle, bool rad = false)
+        internal void RotateZ(float angle, bool rad = false)
             => Mat *= Matrix4.CreateRotationZ(rad ? angle : MathHelper.DegreesToRadians(angle));
 
-        public void Translate(float x, float y, float z = 1.0f)
+        internal void Translate(float x, float y, float z = 1.0f)
             => Mat *= Matrix4.CreateTranslation(x, y, z);
 
-        public void Scale(float horizontal, float vertical, float depth)
+        internal void Scale(float horizontal, float vertical, float depth)
             => Mat *= Matrix4.CreateScale(horizontal, vertical, depth);
 
-        public void Scale(float horizontal, float vertical)
+        internal void Scale(float horizontal, float vertical)
             => Mat *= Matrix4.CreateScale(horizontal, vertical, 1.0f);
 
-        public void Scale(float scale)
+        internal void Scale(float scale)
             => Mat *= Matrix4.CreateScale(scale);
     }
 }

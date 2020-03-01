@@ -30,16 +30,7 @@ namespace Echo.Graphics
                 (pixelated ? TextureMagFilter.Nearest : TextureMagFilter.Linear));
 
             // load the image
-            Image<Rgba32> image = null;
-            try
-            {
-                image = (Image<Rgba32>)Image.Load($@"{Loader.Asset}\Textures\{file}");
-            }
-            catch (FileNotFoundException e)
-            {
-                Log.Warning($"texture {file} not found");
-                throw new FileNotFoundException();
-            }
+            Image<Rgba32> image = (Image<Rgba32>)Image.Load($@"{Loader.Asset}\Textures\{file}");
 
             // flip the image vertically bc opengl loads image reversed
             image.Mutate(x => x.Flip(FlipMode.Vertical));
