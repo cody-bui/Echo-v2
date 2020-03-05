@@ -12,7 +12,9 @@ namespace Echo
         public Game(int width, int height, in string title) : base(width, height, GraphicsMode.Default, title)
         {
             Log.Init("Game");
+            GL.Viewport(0, 0, Width, Height);
 
+            GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Multisample);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
@@ -28,7 +30,7 @@ namespace Echo
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             engine.OnRender(this);
 
             Context.SwapBuffers();

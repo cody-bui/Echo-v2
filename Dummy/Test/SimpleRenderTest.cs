@@ -2,39 +2,50 @@
 using Echo.Graphics;
 using Echo.Graphics.Camera;
 using Echo.Input;
+using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 
 namespace Dummy.Test
 {
-    internal static class SimpleRenderTest
+    internal class SimpleRenderTest
     {
-        private static float[] vertices = {
+        //private float[] vertices = {
+        //    1200.0f,675.0f, 0.0f, 1.0f, 1.0f,
+        //    1200.0f,225.0f, 0.0f, 1.0f, 0.0f,
+        //    400.0f, 225.0f, 0.0f, 0.0f, 0.0f,
+        //    400.0f, 675.0f, 0.0f, 0.0f, 1.0f
+        //};
+
+        private float[] vertices = {
              0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
              0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
             -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
             -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
         };
 
-        private static uint[] indices = {
+        private uint[] indices = {
             0, 1, 3,
             1, 2, 3
         };
 
-        private static VertexBuffer<float> vb;
-        private static IndexBuffer ib;
-        private static VertexArray va;
-        private static Shader shader;
-        private static Texture texture1;
-        private static Texture texture2;
-        private static float blend = 0.001f;
+        private VertexBuffer<float> vb;
+        private IndexBuffer ib;
+        private VertexArray va;
+        private Shader shader;
+        private Texture texture1;
+        private Texture texture2;
+        private float blend = 0.001f;
 
-        private static InputLayer il;
-        private static CameraController cc;
+        private InputLayer il;
+        private CameraController cc;
 
-        internal static void OnLoad(in Game game)
+        internal void OnLoad(in Game game)
         {
+            // rendering
             shader = new Shader("texture", new ShaderType[] { ShaderType.VertexShader, ShaderType.FragmentShader });
             shader.Bind();
+            //Matrix4 proj = Projection.SetOrthoProjection(game.Width, game.Height, 100.0f);
+            //shader.SetUniform("proj", ref proj);
 
             texture1 = new Texture("texture1.png");
             texture1.Bind(0);
@@ -51,25 +62,31 @@ namespace Dummy.Test
             va.Add<float>(VertexAttribPointerType.Float, 2);
             va.Set();
 
+            // input and camera control
             ib = new IndexBuffer(indices, BufferUsageHint.StaticDraw);
 
-            cc = new CameraController(shader);
+            cc = new CameraController(new Vector3(0.0f, 0.0f, 3.0f));
+            cc.Speed = 0.5f;
+
             il = InputManager.Add("test", game);
+            il.Keyboard.KeysEventHandler += cc.OnKeyControl;
+            il.Mouse.MouseMoveEventHandler += cc.OnMouseControl;
 
-            KeyMapping.UpdateKeyMappingEventHandler += cc.SetKeyMapping;
             KeyMapping.UpdateKeyMapping();
-
-            il.Keyboard.KeysEventHandler += cc.KeyControl;
         }
 
-        internal static void OnRender(in Game game)
+        internal void OnRender(in Game game)
         {
             shader.SetUniform("blend", blend += 0.001f);
+            //Matrix4 pos = cc.LookAt();
+            //shader.SetUniform("view", ref pos);
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
         }
 
-        internal static void OnUnload(in Game game)
+        internal void OnUnload(in Game game)
         {
+            il.Keyboard.KeysEventHandler -= cc.OnKeyControl;
+
             vb.Dispose();
             ib.Dispose();
             va.Dispose();

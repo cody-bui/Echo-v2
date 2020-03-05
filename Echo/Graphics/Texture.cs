@@ -29,27 +29,24 @@ namespace Echo.Graphics
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)   // mag filter
                 (pixelated ? TextureMagFilter.Nearest : TextureMagFilter.Linear));
 
-            // load the image
-            Image<Rgba32> image = (Image<Rgba32>)Image.Load($@"{Loader.Asset}\Textures\{file}");
-
-            // flip the image vertically bc opengl loads image reversed
-            image.Mutate(x => x.Flip(FlipMode.Vertical));
-
-            // pixel array in imagesharp's format
-            Rgba32[] px = image.GetPixelSpan().ToArray();
-
-            // pixel array in opengl format
-            List<byte> pixels = new List<byte>();
-            for (int i = 0; i < px.Length; i++)
+            using (Image<Rgba32> image = (Image<Rgba32>)Image.Load($@"{Loader.Asset}\Textures\{file}"))
             {
-                pixels.Add(px[i].R);
-                pixels.Add(px[i].G);
-                pixels.Add(px[i].B);
-                pixels.Add(px[i].A);
-            }
+                // flip the image vertically bc opengl loads image reversed
+                image.Mutate(x => x.Flip(FlipMode.Vertical));
 
-            // load texture
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
+                Rgba32[] px = image.GetPixelSpan().ToArray();
+
+                byte[] pixels = new byte[px.Length * 4];
+                for (int i = 0; i < px.Length; i++)
+                {
+                    pixels[i*4] = px[i].R;
+                    pixels[i*4+1] = px[i].G;
+                    pixels[i*4+2] = px[i].B;
+                    pixels[i*4+3] = px[i].A;
+                }
+
+                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels);
+            }
 
             Log.Init("texture loaded");
         }

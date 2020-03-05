@@ -9,14 +9,16 @@ namespace Dummy
 {
     public class Engine : EchoEngine
     {
+        SimpleRenderTest srt = new SimpleRenderTest();
+
         public override void OnLoad(in Game game)
         {
-            SimpleRenderTest.OnLoad(game);
+            srt.OnLoad(game);
         }
 
         public override void OnRender(in Game game)
         {
-            SimpleRenderTest.OnRender(game);
+            srt.OnRender(game);
         }
 
         public override void OnUpdate(in Game game)
@@ -25,7 +27,7 @@ namespace Dummy
 
         public override void OnUnload(in Game game)
         {
-            SimpleRenderTest.OnUnload(game);
+            srt.OnUnload(game);
         }
     }
 }

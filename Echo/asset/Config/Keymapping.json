@@ -1,8 +1,8 @@
 ﻿{
-  "Move Up": "W",
-  "Move Down": "S",
+  "Move Up": "Space",
+  "Move Down": "LShift",
+  "Move Forward": "W",
+  "Move Backward": "S",
   "Move Left": "A",
   "Move Right": "D",
-  "Zoom In": "-",
-  "Zoom Out": "+"
 }

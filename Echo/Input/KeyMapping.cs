@@ -20,8 +20,6 @@ namespace Echo.Input
         {
             Loader.UseEnginePath();
             path = Loader.Asset + @"\Config\Keymapping.json";
-            string file = File.ReadAllText(path);
-            Log.Info(file);
             keys = JObject.Parse(File.ReadAllText(path));
         }
 
@@ -52,7 +50,6 @@ namespace Echo.Input
         private static int ToEnumKey(in JToken val)
         {
             string key = val.ToString();
-            Log.Info(key);
             switch (key)
             {
                 case "Left Shift": return 1;
